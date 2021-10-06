@@ -1,4 +1,6 @@
+import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 void main() =>
   runApp(const Redditech());
@@ -30,10 +32,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
+  var _reddit = Reddit.createInstalledFlowInstance(
+    clientId: "bHR1qe1C3cUY5pKQLpH2nA",
+    userAgent: "Redditech",
+    redirectUri: Uri.parse("reddit://callback")
+  );
+  Uri? _authUrl;
+  Redditor? _user;
+
   void _incrementCounter() =>
     setState(() =>
       _counter++
     );
+
+  void _auth() async
+  {
+    setState(() => _authUrl ??= _reddit.auth.url(["*"], "Redditech", compactLogin: true));
+    var auth = await FlutterWebAuth.authenticate(url: _authUrl.toString(), callbackUrlScheme: "reddit");
+    String? code = Uri.parse(auth).queryParameters["code"];
+    await _reddit.auth.authorize(code.toString());
+    var user = await _reddit.user.me();
+    setState(() => _user = user);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +65,22 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              'You have pushed the button this many times: $_counter',
             ),
+            Text((() {
+              if (_user == null)
+                return "You must be connected";
+              return _user.toString();
+            }())),
+            TextButton(
+                onPressed: _auth,
+                child: Text("Connect to Reddit"),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  primary: Colors.white
+                )
+            )
           ],
         ),
       ),
