@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 
   void _auth() async
   {
-    setState(() => _authUrl ??= _reddit.auth.url(["*"], "Redditech", compactLogin: true));
+    setState(() => _authUrl ??= _reddit.auth.url(["*"], "Redditech", compactLogin: false));
     var auth = await FlutterWebAuth.authenticate(url: _authUrl.toString(), callbackUrlScheme: "reddit");
     String? code = Uri.parse(auth).queryParameters["code"];
     await _reddit.auth.authorize(code.toString());
