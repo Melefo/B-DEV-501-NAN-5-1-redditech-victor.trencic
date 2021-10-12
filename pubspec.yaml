@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   draw: ^1.0.2
   flutter_web_auth: ^0.3.1
+  mvc_application: ^7.9.1
 
 dev_dependencies:
   flutter_test:
