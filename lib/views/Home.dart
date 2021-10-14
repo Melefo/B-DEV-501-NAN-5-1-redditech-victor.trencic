@@ -1,4 +1,5 @@
 import 'package:app/controllers/Controller.dart';
+import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +19,12 @@ class _Home extends StateMVC<Home> {
   final Controller controller = Controller();
 
   @override
+
   Widget build(BuildContext context) =>
       Scaffold(
-
+          drawer: NavigationDrawerWidget(),
           appBar: AppBar(
               title: Text(widget.title),
-              leading: Icon(Icons.menu),
               actions: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),
@@ -31,23 +32,6 @@ class _Home extends StateMVC<Home> {
                 ),
               ],
               //backgroundColor: Colors.purple,
-          ),
-
-          drawer: Drawer(
-            child: Column(
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                    accountName: Text("accountName"),
-                    accountEmail: Text("accountEmail"),
-                    currentAccountPicture: CircleAvatar(child: Text("P"))
-                ),
-
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text("Home") //Faire un Boutton
-                )
-              ],
-            ),
           ),
           bottomNavigationBar: BottomAppBar(
             child: Row(
