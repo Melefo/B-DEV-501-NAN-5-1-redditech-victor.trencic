@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mvc_application/view.dart'
     show AppMVC;
 
+import 'RodditColors.dart';
+
 void main() =>
   runApp(Roddit());
 
@@ -13,7 +15,10 @@ class Roddit extends AppMVC
     return MaterialApp(
       title: "Roddit",
       theme: ThemeData(
-        primarySwatch: Colors.red
+        primarySwatch: RodditColors.pink,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: RodditColors.blue
+        )
       ),
       home: Home(title: "Roddit")
     );
