@@ -1,4 +1,6 @@
 import 'package:app/views/Home.dart';
+import 'package:app/views/Settings.dart';
+import 'package:app/views/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_application/view.dart'
     show AppMVC;
@@ -20,7 +22,12 @@ class Roddit extends AppMVC
           backgroundColor: RodditColors.blue
         )
       ),
-      home: Home(title: "Roddit")
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Home(title: "Roddit"),
+        '/settings': (context) => const Settings(title: "Settings"),
+        '/profile': (context) => const Profile(title: "Profile")
+      }
     );
   }
 }
