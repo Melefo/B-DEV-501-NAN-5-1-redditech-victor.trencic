@@ -1,10 +1,10 @@
 import 'package:app/views/Home.dart';
 import 'package:app/views/Settings.dart';
 import 'package:app/views/Profile.dart';
+import 'package:app/wrapper/RedditWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_application/view.dart'
     show AppMVC;
-
 import 'RodditColors.dart';
 
 void main() =>
@@ -14,6 +14,7 @@ class Roddit extends AppMVC
 {
   @override
   Widget build(BuildContext context) {
+    RedditWrapper.getFrontHots();
     return MaterialApp(
       title: "Roddit",
       theme: ThemeData(
