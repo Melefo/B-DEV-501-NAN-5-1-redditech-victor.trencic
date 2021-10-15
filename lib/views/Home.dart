@@ -26,9 +26,9 @@ class _Home extends StateMVC<Home> {
   Widget build(BuildContext context) =>
       Scaffold(
           drawer: NavigationDrawerWidget(),
-          appBar: NavigationTopBarWidget(),
+          appBar: NavigationTopBarWidget(title: "Home"),
           bottomNavigationBar: NavigationBotBarWidget(),
-          floatingActionButton: NavigationFabButtonWidget(),
+          floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.cached),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
 }
