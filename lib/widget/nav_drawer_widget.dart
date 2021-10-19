@@ -31,8 +31,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
         child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-              accountName: const Text("accountName"),
-              accountEmail: const Text("accountEmail"),
+              accountName: Text(
+                redditClient.isConnected ? redditClient.me!.displayName : "Roddit"
+              ),
+              accountEmail: Text(
+                  redditClient.isConnected ? redditClient.me!.fullname ?? "" : ""
+              ),
               currentAccountPicture: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(
@@ -40,7 +44,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                       "/profile"
                   );
                 },
-                child: const CircleAvatar(child: Text("P")),
+                child: CircleAvatar(child: redditClient.isConnected ? Image.network(redditClient.me!.data!["icon_img"]!.split("?")[0]) : Text("P")),
               )
           ),
           ListTile(

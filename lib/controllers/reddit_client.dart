@@ -1,4 +1,5 @@
 import 'package:app/models/reddit_data.dart';
+import 'package:draw/draw.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
@@ -15,6 +16,8 @@ class RedditClient extends ControllerMVC {
   }
 
   bool get isConnected => _model.isConnected;
+
+  Redditor? get me => _model.me;
 
   Future<void> connect(BuildContext context) async {
     try {
