@@ -27,7 +27,7 @@ jobs:
 
       - run: flutter pub get
       - run: flutter analyze
-      - run: flutter build apk
+      - run: flutter build apk --dart-define=REDDIT_USER_AGENT=$REDDIT_USER_AGENT --dart-define=REDDIT_CLIENT_ID=$REDDIT_CLIENT_ID --dart-define=REDDIT_REDIRECT_URI=$REDDIT_REDIRECT_URI
       
       - name: Push APK to GitHub
         uses: actions/upload-artifact@v2
