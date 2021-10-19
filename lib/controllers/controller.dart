@@ -1,4 +1,4 @@
-import 'package:app/models/Model.dart';
+import 'package:app/models/model.dart';
 import 'package:mvc_application/controller.dart';
 
 class Controller extends ControllerMVC {
