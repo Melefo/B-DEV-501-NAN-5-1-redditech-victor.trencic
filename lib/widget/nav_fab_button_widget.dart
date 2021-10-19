@@ -6,8 +6,7 @@ class NavigationFabButtonWidget extends StatelessWidget {
 
   final IconData buttonIcon;
 
-  NavigationFabButtonWidget({required this.buttonIcon}) {
-  }
+  const NavigationFabButtonWidget({Key? key, required this.buttonIcon}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,8 @@ class RedditPost {
     description = json["title"];
     upvotes = json["ups"];
     thumbnail = json["thumbnail"];
-    if (Uri.tryParse(thumbnail!)?.hasAbsolutePath == false)
+    if (Uri.tryParse(thumbnail!)?.hasAbsolutePath == false) {
       thumbnail = null;
+    }
   }
 }

@@ -1,5 +1,5 @@
 class RedditUrl {
-  static String _base = "reddit.com";
+  static const String _base = "reddit.com";
 
   static Uri getHot([Map<String, dynamic>? queryParameters]) =>
     Uri.https(_base, "/hot.json", queryParameters);

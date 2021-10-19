@@ -1,4 +1,4 @@
-import 'package:app/controllers/Controller.dart';
+import 'package:app/controllers/controller.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
@@ -19,12 +19,13 @@ class Profile extends StatefulWidget {
 
 //state
 class _Profile extends StateMVC<Profile> {
+  @override
   final Controller controller = Controller();
 
   @override
 
   Widget build(BuildContext context) =>
-      Scaffold(
+      const Scaffold(
         drawer: NavigationDrawerWidget(),
         appBar: NavigationTopBarWidget(title: "Profile"),
         bottomNavigationBar: NavigationBotBarWidget(),

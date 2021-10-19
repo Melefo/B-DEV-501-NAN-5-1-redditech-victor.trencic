@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  NavigationTopBarWidget({required this.title}) {
-  }
+  const NavigationTopBarWidget({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +13,8 @@ class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWid
       title: Text(title),
       actions: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: IconButton(icon: const Icon(Icons.search), onPressed: () {}),
         ),
       ]
     );

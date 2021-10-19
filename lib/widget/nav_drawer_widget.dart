@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
-  final padding= EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
+
+  const NavigationDrawerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +14,20 @@ class NavigationDrawerWidget extends StatelessWidget {
         child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-              accountName: Text("accountName"),
-              accountEmail: Text("accountEmail"),
+              accountName: const Text("accountName"),
+              accountEmail: const Text("accountEmail"),
               currentAccountPicture: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(
                       context,
                       "/profile");
                 },
-                child: CircleAvatar(child: Text("P")),
+                child: const CircleAvatar(child: Text("P")),
               )
           ),
           ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
+              leading: const Icon(Icons.home),
+              title: const Text("Home"),
               onTap: () {
                 Navigator.pushNamed(context, "/");
               },

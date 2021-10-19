@@ -1,10 +1,10 @@
-import 'package:app/controllers/Controller.dart';
+import 'package:app/controllers/controller.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/wrapper/RedditPost.dart';
-import 'package:app/wrapper/RedditWrapper.dart';
+import 'package:app/wrapper/reddit_post.dart';
+import 'package:app/wrapper/reddit_wrapper.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -21,23 +21,25 @@ class Home extends StatefulWidget {
 
 //state
 class _Home extends StateMVC<Home> {
+  @override
   final Controller controller = Controller();
   List<RedditPost> posts = [];
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-          drawer: NavigationDrawerWidget(),
-          appBar: NavigationTopBarWidget(title: "Home"),
-          bottomNavigationBar: NavigationBotBarWidget(),
-          floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.cached),
+          drawer: const NavigationDrawerWidget(),
+          appBar: const NavigationTopBarWidget(title: "Home"),
+          bottomNavigationBar: const NavigationBotBarWidget(),
+          floatingActionButton: const NavigationFabButtonWidget(buttonIcon: Icons.cached),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: StreamBuilder<List<RedditPost>>(
           stream: RedditWrapper.getFrontHots(),
           builder: (context, snapshot) {
-            if (snapshot.hasData)
+            if (snapshot.hasData) {
               posts = [...posts, ...snapshot.data!];
-            return ListView.separated(padding: EdgeInsets.all(20.0),
+            }
+            return ListView.separated(padding: const EdgeInsets.all(20.0),
                 itemBuilder: (context, index) {
                   return ListTile(
                     tileColor: Colors.white,
@@ -46,19 +48,19 @@ class _Home extends StateMVC<Home> {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        new Text("${posts[index].author} in ${posts[index].subreddit}"),
-                        new Text(posts[index].upvotes.toString())
+                        Text("${posts[index].author} in ${posts[index].subreddit}"),
+                        Text(posts[index].upvotes.toString())
                       ],
                     ),
                     subtitle: Text(posts[index].description),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
+                  return const SizedBox(
                     child: Divider(indent: 100, endIndent: 20),
                   );
                 },
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: posts.length);
