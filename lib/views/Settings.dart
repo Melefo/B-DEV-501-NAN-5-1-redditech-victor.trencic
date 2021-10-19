@@ -1,4 +1,3 @@
-import 'package:app/RodditColors.dart';
 import 'package:app/controllers/Controller.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';

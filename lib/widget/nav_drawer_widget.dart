@@ -1,4 +1,3 @@
-import 'package:app/RodditColors.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'package:app/wrapper/RedditUrl.dart';
 import 'package:http/http.dart';
 
 class RedditWrapper {
-  static String _lastHot = "";
+  //static String _lastHot = "";
 
   static Stream<List<RedditPost>> getFrontHots({int limits: 25}) async* {
     Response res = await get(RedditUrl.getHot({"limits": limits.toString()}));
