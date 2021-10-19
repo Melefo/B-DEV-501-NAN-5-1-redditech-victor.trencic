@@ -1,4 +1,4 @@
-import 'package:app/controllers/controller.dart';
+import 'package:app/controllers/reddit_client.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
@@ -20,7 +20,7 @@ class Settings extends StatefulWidget {
 //state
 class _Settings extends StateMVC<Settings> {
   @override
-  final Controller controller = Controller();
+  final RedditClient controller = RedditClient();
 
   @override
 

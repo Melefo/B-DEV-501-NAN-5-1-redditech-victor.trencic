@@ -23,6 +23,11 @@ class Roddit extends AppMVC
         primarySwatch: RodditColors.pink,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: RodditColors.blue
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+              primary: RodditColors.blue,
+          )
         )
       ),
       initialRoute: '/',
