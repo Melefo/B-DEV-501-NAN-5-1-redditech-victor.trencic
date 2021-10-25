@@ -1,4 +1,5 @@
 import 'package:app/controllers/reddit_client.dart';
+import 'package:app/models/rodditor.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,15 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               ),
               currentAccountPicture: TextButton(
                 onPressed: () {
+                  if (!redditClient.isConnected) {
+                    return;
+                  }
                   Navigator.pushNamed(
                       context,
                       "/profile"
                   );
                 },
-                child: CircleAvatar(child: redditClient.isConnected ? Image.network(redditClient.me!.data!["icon_img"]!.split("?")[0]) : Text("P")),
+                child: CircleAvatar(child: redditClient.isConnected ? Image.network(redditClient.me!.iconImg!) : Text("P")),
               )
           ),
           ListTile(
