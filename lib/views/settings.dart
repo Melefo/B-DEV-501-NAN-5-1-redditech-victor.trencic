@@ -25,11 +25,11 @@ class _Settings extends StateMVC<Settings> {
   @override
 
   Widget build(BuildContext context) =>
-      const Scaffold(
-        drawer: NavigationDrawerWidget(),
-        appBar: NavigationTopBarWidget(title: "Settings"),
-        bottomNavigationBar: NavigationBotBarWidget(),
-        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home),
+      Scaffold(
+        drawer: const NavigationDrawerWidget(),
+        appBar: const NavigationTopBarWidget(title: "Settings"),
+        bottomNavigationBar: const NavigationBotBarWidget(),
+        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, "/")),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
 }

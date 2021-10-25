@@ -1,4 +1,5 @@
 import 'package:app/controllers/reddit_client.dart';
+import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
@@ -25,14 +26,18 @@ class _Home extends StateMVC<Home> {
   final RedditClient controller = RedditClient();
   List<RedditPost> posts = [];
 
+  void emptyPosts() =>
+      setState(() => posts.clear());
+
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-          drawer: const NavigationDrawerWidget(),
-          appBar: const NavigationTopBarWidget(title: "Home"),
-          bottomNavigationBar: const NavigationBotBarWidget(),
-          floatingActionButton: const NavigationFabButtonWidget(buttonIcon: Icons.cached),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        drawer: const NavigationDrawerWidget(),
+        appBar: const NavigationTopBarWidget(title: "Home"),
+        bottomNavigationBar: const NavigationBotBarWidget(),
+        floatingActionButton: NavigationFabButtonWidget(
+            buttonIcon: Icons.cached, onPressed: emptyPosts),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: StreamBuilder<List<RedditPost>>(
           stream: RedditWrapper.getFrontHots(),
           builder: (context, snapshot) {
@@ -43,16 +48,32 @@ class _Home extends StateMVC<Home> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     tileColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    trailing: posts[index].thumbnail != null ? Image.network(posts[index].thumbnail!, width: 50, height: 50, fit: BoxFit.cover) : null,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    trailing: posts[index].thumbnail != null ? Image.network(
+                        posts[index].thumbnail!, width: 50,
+                        height: 50,
+                        fit: BoxFit.cover) : null,
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("${posts[index].author} in ${posts[index].subreddit}"),
-                        Text(posts[index].upvotes.toString())
+                        Text.rich(TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(text: posts[index].author,
+                                  style: TextStyle(color: RodditColors.pink,
+                                      fontWeight: FontWeight.bold)),
+                              const TextSpan(text: " in "),
+                              TextSpan(text: posts[index].subreddit,
+                                  style: TextStyle(color: RodditColors.blue,
+                                      fontWeight: FontWeight.bold))
+                            ]
+                        ), style: const TextStyle(fontSize: 14)),
+                        Text(posts[index].upvotes.toString(),
+                            style: const TextStyle(color: Colors.black45))
                       ],
                     ),
-                    subtitle: Text(posts[index].description),
+                    subtitle: Text(posts[index].description,
+                        style: const TextStyle(color: Colors.black)),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
