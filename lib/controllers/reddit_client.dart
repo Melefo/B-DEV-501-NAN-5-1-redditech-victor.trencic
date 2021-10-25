@@ -1,5 +1,5 @@
 import 'package:app/models/reddit_data.dart';
-import 'package:app/models/rodditor.dart';
+import 'package:app/extensions/rodditor.dart';
 import 'package:draw/draw.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_application/controller.dart';
