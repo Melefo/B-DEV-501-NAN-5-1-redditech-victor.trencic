@@ -1,4 +1,6 @@
 import 'package:app/controllers/reddit_client.dart';
+import 'package:app/extensions/rodditor.dart';
+import 'package:app/roddit_colors.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -13,48 +15,76 @@ class NavigationDrawerWidget extends StatefulWidget {
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
-  final redditClient = RedditClient();
+  final client = RedditClient();
+  final List<Widget> list = [];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = [];
-
-    if (redditClient.isConnected) {
+    if (client.isConnected) {
+      /*client.me!.subreddits.listen((event) {
+        setState(() {
+          list.add(ListTile(title: Text(event.title)));
+        });
+      });*/
     }
     else {
       list.add(OutlinedButton(
-          onPressed: () => redditClient.connect(context),
+          onPressed: () => client.connect(context),
           child: const Text("CONNECT")
       ));
     }
-      return Drawer(
-        child: Column(
+    return Drawer(
+      child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-              accountName: Text(
-                redditClient.isConnected ? redditClient.me!.displayName : "Roddit"
+            accountName: Text(
+                client.isConnected
+                    ? client.me!.username
+                    : "Roddit"
+            ),
+            accountEmail: Text(
+                client.isConnected ? client.me!.fullname ?? "" : ""
+            ),
+            currentAccountPicture: TextButton(
+              onPressed: () {
+                if (!client.isConnected) {
+                  return;
+                }
+                Navigator.pushNamed(
+                    context,
+                    "/profile"
+                );
+              },
+              child: CircleAvatar(
+                  child: client.isConnected ? Image.network(
+                      client.me!.iconImg!) : const Text("P"),
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0)
               ),
-              accountEmail: Text(
-                  redditClient.isConnected ? redditClient.me!.fullname ?? "" : ""
-              ),
-              currentAccountPicture: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                      context,
-                      "/profile"
-                  );
-                },
-                child: CircleAvatar(child: redditClient.isConnected ? Image.network(redditClient.me!.data!["icon_img"]!.split("?")[0]) : Text("P")),
-              )
+            ),
+            decoration: BoxDecoration(
+                image: client.isConnected ? DecorationImage(
+                    image: NetworkImage(client.me!.bannerImg!),
+                    fit: BoxFit.cover) : null,
+                color: RodditColors.pink
+            ),
           ),
           ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text("Home"),
-              onTap: () {
-                Navigator.pushNamed(context, "/");
-              },
-          ), ...list
+            leading: const Icon(Icons.home),
+            title: const Text("Home"),
+            onTap: () {
+              Navigator.pushNamed(context, "/");
+            },
+          ), ...list,
+          StreamBuilder(
+            stream: client.me?.subreddits,
+            builder: (builder, snapshot) {
+              if (snapshot.hasData) {
+                  //list.add(new ListTile(title: Text(snapshot.data!)));
+              }
+              return Column(children: list);
+            }
+          )
         ],
-      ),);
+      ));
   }
 }
