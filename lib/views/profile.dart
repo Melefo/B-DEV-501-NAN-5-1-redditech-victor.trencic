@@ -5,6 +5,8 @@ import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
+import 'package:app/widget/submission_widget.dart';
+import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -22,44 +24,31 @@ class Profile extends StatefulWidget {
 //state
 class _Profile extends StateMVC<Profile> {
   final RedditClient client = RedditClient();
+  final List<Widget> texts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (!client.isConnected) {
+      return;
+    }
+    client.me!.submissions.newest().listen((event) async {
+      var values = await event.fetch();
+      setState(() {
+        for (var list in values) {
+          for (var value in list["listing"]) {
+            if (value is Submission) {
+              Submission submission = value;
+              texts.add(Post(submission: submission));
+            }
+          }
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [];
-    if (client.isConnected) {
-      children.add(Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 50, bottom: 50),
-          child: CircleAvatar(
-              child: Image.network(client.me!.iconImg!),
-              radius: 75),
-        ),
-        decoration: BoxDecoration(image: DecorationImage(
-            image: NetworkImage(client.me!.bannerImg!),
-            fit: BoxFit.cover
-        )
-        ),
-      )
-      );
-      children.add(Center(
-          child: Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: Text(
-                  client.me!.displayName,
-                  style: const TextStyle(fontSize: 40)
-              )
-          )
-      ));
-      children.add(Padding(
-          padding: const EdgeInsets.only(
-              left: 42, right: 42, top: 300, bottom: 16),
-          child: Text(
-              client.me!.description!, style: const TextStyle(fontSize: 16))
-      ));
-      children.add(const Divider(indent: 32, endIndent: 32));
-      children.add(Text(client.me.toString()));
-    }
-
     return Scaffold(
       drawer: const NavigationDrawerWidget(),
       appBar: const NavigationTopBarWidget(title: "Profile"),
@@ -69,6 +58,9 @@ class _Profile extends StateMVC<Profile> {
           onPressed: () => Navigator.pushNamed(context, "/")),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
+          scrollDirection: Axis.vertical,
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
           children: [
             Container(
               height: 150,
@@ -125,6 +117,21 @@ class _Profile extends StateMVC<Profile> {
                     ]
                 )
             ),
+            ListView.separated(
+                padding: const EdgeInsets.all(20),
+                itemBuilder: (context, index) {
+                  return texts[index];
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    child: Divider(indent: 100, endIndent: 20),
+                  );
+                },
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: texts.length
+            )
           ]
       ),
     );
