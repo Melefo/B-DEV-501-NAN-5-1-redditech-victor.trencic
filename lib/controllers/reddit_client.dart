@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'package:app/models/reddit_data.dart';
+import 'package:app/models/reddit_prefs.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:http/http.dart' as http;
 
 class RedditClient extends ControllerMVC {
   factory RedditClient() => _this ??= RedditClient._();
@@ -9,8 +12,7 @@ class RedditClient extends ControllerMVC {
   static RedditClient? _this;
   late RedditData _model;
 
-  RedditClient._()
-  {
+  RedditClient._() {
     _model = RedditData();
   }
 
@@ -23,7 +25,9 @@ class RedditClient extends ControllerMVC {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
           callbackUrlScheme: _model.userAgent.toLowerCase());
-      String? code = Uri.parse(auth).queryParameters["code"];
+      String? code = Uri
+          .parse(auth)
+          .queryParameters["code"];
       await _model.reddit.auth.authorize(code.toString());
       _model.me = await _model.reddit.user.me();
       Navigator.pop(context);
@@ -32,6 +36,19 @@ class RedditClient extends ControllerMVC {
       _model = RedditData();
       Navigator.pop(context);
       return;
+    }wsl
+
+  }
+
+  Future<void> savePrefs(RedditPrefs prefs) async {
+    var res = await http.patch(Uri.https("oauth.reddit.com", "api/v1/me/prefs"),
+        headers: {
+          "Authorization": "Bearer ${_model.reddit.auth.credentials
+              .accessToken}",
+          "Content-Type": "application/json"
+        }, body: json.encode(prefs.data));
+    if (res.statusCode != 200) {
+      throw DRAWAuthenticationError("Can't save user prefs");
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
+import 'package:app/models/reddit_prefs.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +14,23 @@ class SettingsButtonWidget extends StatefulWidget {
 
 class _SettingsButtonWidget extends State<SettingsButtonWidget> {
   final RedditClient client = RedditClient();
-  bool _is_over_18 = false;
-  bool _is_hidden = false;
-  bool _is_beta = false;
-  bool _night_mode = false;
-  bool _email_chat_r = false;
-  bool _email_comment_r = false;
+  RedditPrefs? prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    client.me!.prefs.then((value) =>
+    {
+      setState(() {
+        prefs = value;
+      })
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (prefs == null)
+      return ListView();
     return ListView (
       children: [
         Column (children: [
@@ -38,14 +47,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                 children: <Widget>[
                   Text('Enable Night Mode in preferences'),
                   Switch(
-                    value: _night_mode,
+                    value: prefs!.nightmode,
                     activeColor: Color(0xFF6200EE),
                     inactiveThumbColor: Color(0x33333333),
-                    onChanged: (bool value)  {
+                    onChanged: (bool value) async {
                       setState(() {
-                        _night_mode = value;
-                        // fonction à appeler avec value en param
+                        prefs!.nightmode = value;
                       });
+                      await client.savePrefs(prefs!);
                     },
                   ),
                 ]
@@ -63,14 +72,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                 children: <Widget>[
                   Text('Enable the Beta view interface'),
                   Switch(
-                    value: _is_beta,
+                    value: prefs!.beta,
                     activeColor: Color(0xFF6200EE),
                     inactiveThumbColor: Color(0x33333333),
-                    onChanged: (bool value)  {
+                    onChanged: (bool value) async {
                       setState(() {
-                        _is_beta = value;
-                        // fonction à appeler avec value en param
+                        prefs!.beta = value;
                       });
+                      await client.savePrefs(prefs!);
                     },
                   ),
                 ]
@@ -88,14 +97,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
               children: <Widget>[
                 Text('Allow +18 content (NSFW)'),
                 Switch(
-                  value: _is_over_18,
+                  value: prefs!.over18,
                   activeColor: Color(0xFF6200EE),
                   inactiveThumbColor: Color(0x33333333),
-                  onChanged: (bool value)  {
+                  onChanged: (bool value) async {
                     setState(() {
-                      _is_over_18 = value;
-                      // fonction à appeler avec value en param
+                      prefs!.over18 = value;
                     });
+                    await client.savePrefs(prefs!);
                   },
                 ),
               ]
@@ -113,14 +122,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                 children: <Widget>[
                   Text('Show your profil in search result'),
                   Switch(
-                    value: _is_hidden,
+                    value: prefs!.research,
                     activeColor: Color(0xFF6200EE),
                     inactiveThumbColor: Color(0x33333333),
-                    onChanged: (bool value)  {
+                    onChanged: (bool value) async {
                       setState(() {
-                        _is_hidden = value;
-                        // fonction à appeler avec value en param
+                        prefs!.research = value;
                       });
+                      await client.savePrefs(prefs!);
                     },
                   ),
                 ]
@@ -138,14 +147,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                 children: <Widget>[
                   Text('Email Chat request'),
                   Switch(
-                    value: _email_chat_r,
+                    value: prefs!.emailChatRequest,
                     activeColor: Color(0xFF6200EE),
                     inactiveThumbColor: Color(0x33333333),
-                    onChanged: (bool value)  {
+                    onChanged: (bool value) async {
                       setState(() {
-                        _email_chat_r = value;
-                        // fonction à appeler avec value en param
+                        prefs!.emailChatRequest = value;
                       });
+                      await client.savePrefs(prefs!);
                     },
                   ),
                 ]
@@ -155,14 +164,14 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                 children: <Widget>[
                   Text('Email Comment reply'),
                   Switch(
-                    value: _email_comment_r,
+                    value: prefs!.emailCommentReply,
                     activeColor: Color(0xFF6200EE),
                     inactiveThumbColor: Color(0x33333333),
-                    onChanged: (bool value)  {
+                    onChanged: (bool value)  async {
                       setState(() {
-                        _email_comment_r = value;
-                        // fonction à appeler avec value en param
+                        prefs!.emailCommentReply = value;
                       });
+                      await client.savePrefs(prefs!);
                     },
                   ),
                 ]
