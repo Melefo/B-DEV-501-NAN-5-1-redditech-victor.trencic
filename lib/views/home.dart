@@ -34,7 +34,7 @@ class _Home extends StateMVC<Home> {
       Scaffold(
         drawer: const NavigationDrawerWidget(),
         appBar: const NavigationTopBarWidget(title: "Home"),
-        bottomNavigationBar: const NavigationBotBarWidget(),
+        bottomNavigationBar: NavigationBotBarWidget(),
         floatingActionButton: NavigationFabButtonWidget(
             buttonIcon: Icons.cached, onPressed: emptyPosts),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

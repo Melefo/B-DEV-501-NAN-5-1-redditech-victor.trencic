@@ -1,6 +1,7 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
 import 'package:app/models/reddit_prefs.dart';
+import 'package:app/widget/row_button_widget.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -176,6 +177,7 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
                   ),
                 ]
             ),
+            RowButtonWidget(textContent: 'showGoldExpiration', field: 'showGoldExpiration', prefs: prefs!),
           ]
         )
       ]

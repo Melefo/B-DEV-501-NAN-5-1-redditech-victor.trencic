@@ -52,7 +52,7 @@ class _Profile extends StateMVC<Profile> {
     return Scaffold(
       drawer: const NavigationDrawerWidget(),
       appBar: const NavigationTopBarWidget(title: "Profile"),
-      bottomNavigationBar: const NavigationBotBarWidget(),
+      bottomNavigationBar: NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
           onPressed: () => Navigator.pushNamed(context, "/")),

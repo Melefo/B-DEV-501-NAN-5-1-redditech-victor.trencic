@@ -36,7 +36,7 @@ class RedditClient extends ControllerMVC {
       _model = RedditData();
       Navigator.pop(context);
       return;
-    }wsl
+    }
 
   }
 
