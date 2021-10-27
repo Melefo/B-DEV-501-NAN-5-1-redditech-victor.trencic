@@ -187,7 +187,7 @@ class RedditPrefs {
     data["show_flair"] = value;
   }
 
-  bool get showGoldExpiration => data["showGoldExpiration"];
+  bool get showGoldExpiration => data["show_gold_expiration"];
 
   set showGoldExpiration(bool value) {
     data["showGoldExpiration"] = value;
