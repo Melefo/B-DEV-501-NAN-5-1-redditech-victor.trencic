@@ -3,11 +3,11 @@ import 'package:app/models/reddit_post.dart';
 import 'package:http/http.dart';
 
 enum OfflineGetType {
-  best,
   newest,
   rising,
   top,
-  hot
+  hot,
+  controversial
 }
 
 class RedditOffline {
@@ -16,19 +16,19 @@ class RedditOffline {
   static RedditOffline? _this;
   static const String _base = "reddit.com";
   static const Map<OfflineGetType, String> _path = {
-    OfflineGetType.best: "/best.json",
     OfflineGetType.newest: "/new.json",
     OfflineGetType.rising: "/rising.json",
     OfflineGetType.top: "/top.json",
-    OfflineGetType.hot: "/hot.json"
+    OfflineGetType.hot: "/hot.json",
+    OfflineGetType.controversial: "/controversial.json"
   };
 
   final Map<OfflineGetType, String> _last = {
-    OfflineGetType.best: "",
     OfflineGetType.newest: "",
     OfflineGetType.rising: "",
     OfflineGetType.top: "",
-    OfflineGetType.hot: ""
+    OfflineGetType.hot: "",
+    OfflineGetType.controversial: ""
   };
 
   RedditOffline._();

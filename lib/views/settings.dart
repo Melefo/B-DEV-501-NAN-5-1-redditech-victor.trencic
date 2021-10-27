@@ -28,7 +28,7 @@ class _Settings extends StateMVC<Settings> {
       Scaffold(
         drawer: const NavigationDrawerWidget(),
         appBar: const NavigationTopBarWidget(title: "Settings"),
-        bottomNavigationBar: const NavigationBotBarWidget(),
+        bottomNavigationBar: NavigationBotBarWidget(callback: (_) {}),
         floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, "/")),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );

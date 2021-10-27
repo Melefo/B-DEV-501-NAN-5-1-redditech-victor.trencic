@@ -28,11 +28,12 @@ class _Home extends StateMVC<Home> {
   final RedditOffline offline = RedditOffline();
   final ScrollController _controller = ScrollController();
   final List<RedditPost> posts = [];
+  OfflineGetType currentType = OfflineGetType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
 
   void emptyPosts() {
-    offline.resetPosts(OfflineGetType.hot);
+    offline.resetPosts(currentType);
     setState(() => posts.clear());
     listen();
   }
@@ -40,7 +41,7 @@ class _Home extends StateMVC<Home> {
   void listen() {
     _end = false;
     _stream.cancel();
-    _stream = offline.getPosts(OfflineGetType.hot).listen((event) {
+    _stream = offline.getPosts(currentType).listen((event) {
       setState(() {
         posts.add(event);
       });
@@ -61,12 +62,17 @@ class _Home extends StateMVC<Home> {
     });
   }
 
+  void filter(OfflineGetType newType) {
+    currentType = newType;
+    emptyPosts();
+  }
+
   @override
   Widget build(BuildContext context) =>
       Scaffold(
           drawer: const NavigationDrawerWidget(),
           appBar: const NavigationTopBarWidget(title: "Home"),
-          bottomNavigationBar: const NavigationBotBarWidget(),
+          bottomNavigationBar: NavigationBotBarWidget(callback: filter),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
               onPressed: emptyPosts
