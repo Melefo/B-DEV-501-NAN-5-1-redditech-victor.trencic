@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 import '../roddit_colors.dart';
 
 class NavigationFilterWidget extends StatefulWidget {
-  final Function(PostType) callback;
+  final Function(PostType)? callback;
 
-  const NavigationFilterWidget({Key? key, required this.callback}) : super(key: key);
+  const NavigationFilterWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _NavigationFilterWidget();
@@ -70,7 +70,9 @@ class _NavigationFilterWidget extends State<NavigationFilterWidget> {
             onSelected: (PostType newValue) {
               setState(() {
                 _value = newValue;
-                widget.callback(newValue);
+                if (widget.callback != null) {
+                  widget.callback!(newValue);
+                }
               });
             },
           )

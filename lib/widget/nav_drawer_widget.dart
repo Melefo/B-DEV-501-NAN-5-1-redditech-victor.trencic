@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+  NavigationDrawerWidget({Key? key, this.callback}) : super(key: key);
+
+  Function()? callback;
 
   @override
   State<StatefulWidget> createState() => _NavigationDrawerWidget();
@@ -24,15 +26,19 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     super.initState();
     if (!client.isConnected) {
       list.add(OutlinedButton(
-          onPressed: () => client.connect(context),
+          onPressed: () {
+            client.connect(context).then((value) {
+              if (widget.callback != null) {
+                widget.callback!();
+              }
+            });
+          },
           child: const Text("CONNECT")
       ));
     }
     else {
-      client.me!.subreddits.listen((event) async {
-        var value = await event.fetch();
+      client.me!.subreddits.listen((sub) async {
         setState(() {
-          var sub = value as Subreddit;
           list.add(ListTile(
             leading: CircleAvatar(
               backgroundImage: sub.iconImage?.hasAbsolutePath ?? false

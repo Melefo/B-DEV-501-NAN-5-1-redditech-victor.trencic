@@ -38,43 +38,55 @@ class RedditClient extends ControllerMVC {
     _last[type] = "";
   }
 
-  /*Stream<RedditPost> getPosts(PostType type, {int limits = 100}) {
+  Stream<RedditPost> getPosts(PostType type, {int limits = 100}) async* {
+    Stream<UserContent> stream;
+
     switch (type) {
-      case PostType.controversial: {
-       return _model.reddit.front.controversial().map<RedditPost>((event) {
-          return RedditPost();
-       });
-      }
-      break;
+      case PostType.controversial:
+        {
+          stream = _model.reddit.front.controversial();
+        }
+        break;
 
-      case PostType.hot: {
-        _model.reddit.front.hot();
-      }
-      break;
+      case PostType.hot:
+        {
+          stream = _model.reddit.front.hot();
+        }
+        break;
 
-      case PostType.newest: {
-        _model.reddit.front.newest();
-      }
-      break;
+      case PostType.newest:
+        {
+          stream = _model.reddit.front.newest();
+        }
+        break;
 
-      case PostType.rising: {
-        _model.reddit.front.rising();
-      }
-      break;
+      case PostType.rising:
+        {
+          stream = _model.reddit.front.rising();
+        }
+        break;
 
-      case PostType.top: {
-        _model.reddit.front.top();
-      }
-      break;
+      case PostType.top:
+        {
+          stream = _model.reddit.front.top();
+        }
+        break;
     }
-  }*/
+    await for (final event in stream) {
+      var submission = event as Submission;
+
+      yield RedditPost.fromJson(submission.data as Map<String, dynamic>);
+    }
+  }
 
   Future<void> connect(BuildContext context) async {
     try {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
           callbackUrlScheme: _model.userAgent.toLowerCase());
-      String? code = Uri.parse(auth).queryParameters["code"];
+      String? code = Uri
+          .parse(auth)
+          .queryParameters["code"];
       await _model.reddit.auth.authorize(code.toString());
       _model.me = await _model.reddit.user.me();
       Navigator.pop(context);

@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'nav_filter_widget.dart';
 
 class NavigationBotBarWidget extends StatelessWidget {
-  final Function(PostType) callback;
+  final Function(PostType)? callback;
 
-  const NavigationBotBarWidget({Key? key, required this.callback}) : super(key: key);
+  const NavigationBotBarWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

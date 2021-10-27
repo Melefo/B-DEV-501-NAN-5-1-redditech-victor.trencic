@@ -41,7 +41,13 @@ class _Home extends StateMVC<Home> {
     _end = false;
     _stream.cancel();
     if (client.isConnected) {
-      //_stream = client
+      _stream = client.getPosts(currentType).listen((event) {
+        setState(() {
+          posts.add(event);
+        });
+      }, onDone: () {
+        _end = true;
+      });
     }
     else {
       _stream = offline.getPosts(currentType).listen((event) {
@@ -49,8 +55,8 @@ class _Home extends StateMVC<Home> {
           posts.add(event);
         });
       }, onDone: () {
-        _end = true;
-      });
+    _end = true;
+    });
     }
   }
 
@@ -74,7 +80,7 @@ class _Home extends StateMVC<Home> {
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-          drawer: const NavigationDrawerWidget(),
+          drawer: NavigationDrawerWidget(callback: emptyPosts),
           appBar: const NavigationTopBarWidget(title: "Home"),
           bottomNavigationBar: NavigationBotBarWidget(callback: filter),
           floatingActionButton: NavigationFabButtonWidget(

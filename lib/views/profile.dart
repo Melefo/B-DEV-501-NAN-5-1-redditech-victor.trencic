@@ -33,16 +33,9 @@ class _Profile extends StateMVC<Profile> {
       return;
     }
     client.me!.submissions.newest().listen((event) async {
-      var values = await event.fetch();
+      var submission = event as Submission;
       setState(() {
-        for (var list in values) {
-          for (var value in list["listing"]) {
-            if (value is Submission) {
-              Submission submission = value;
-              texts.add(SubmissionWidget(data: submission));
-            }
-          }
-        }
+        texts.add(SubmissionWidget(data: submission));
       });
     });
   }
@@ -50,9 +43,9 @@ class _Profile extends StateMVC<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawerWidget(),
+      drawer: NavigationDrawerWidget(),
       appBar: const NavigationTopBarWidget(title: "Profile"),
-      bottomNavigationBar: NavigationBotBarWidget(callback: (_) {}),
+      bottomNavigationBar: const NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
           onPressed: () => Navigator.pushNamed(context, "/")),
