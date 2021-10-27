@@ -3,10 +3,10 @@ import 'package:draw/draw.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Post extends StatelessWidget {
-  final Submission submission;
+class SubmissionWidget extends StatelessWidget {
+  final Submission data;
 
-  const Post({Key? key, required this.submission}) : super(key: key);
+  const SubmissionWidget({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class Post extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5)
       ),
-      trailing: submission.thumbnail.hasAbsolutePath ? Image.network(
-          submission.thumbnail.toString()) : null,
+      trailing: data.thumbnail.hasAbsolutePath ? Image.network(
+          data.thumbnail.toString()) : null,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,7 +24,7 @@ class Post extends StatelessWidget {
             TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text: submission.author,
+                      text: data.author,
                       style: TextStyle(
                           color: RodditColors.pink,
                           fontWeight: FontWeight.bold
@@ -34,7 +34,7 @@ class Post extends StatelessWidget {
                       text: " in "
                   ),
                   TextSpan(
-                      text: submission.subreddit.displayName,
+                      text: data.subreddit.displayName,
                       style: TextStyle(
                           color: RodditColors.blue,
                           fontWeight: FontWeight.bold
@@ -45,7 +45,7 @@ class Post extends StatelessWidget {
             ),
           ),
           Text(
-            submission.upvotes.toString(),
+            data.upvotes.toString(),
             style: const TextStyle(
                 color: Colors.black45
             ),
@@ -53,7 +53,7 @@ class Post extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        submission.title,
+        data.title,
         style: const TextStyle(color: Colors.black),
       ),
     );

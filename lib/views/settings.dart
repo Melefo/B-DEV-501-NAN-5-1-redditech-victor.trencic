@@ -20,7 +20,7 @@ class Settings extends StatefulWidget {
 //state
 class _Settings extends StateMVC<Settings> {
   @override
-  final RedditClient controller = RedditClient();
+  final RedditClient client = RedditClient();
 
   @override
 

@@ -1,3 +1,4 @@
+import 'package:app/controllers/reddit_client.dart';
 import 'package:app/controllers/reddit_offline.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:mvc_application/controller.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'nav_filter_widget.dart';
 
 class NavigationBotBarWidget extends StatelessWidget {
-  final Function(OfflineGetType) callback;
+  final Function(PostType) callback;
 
   const NavigationBotBarWidget({Key? key, required this.callback}) : super(key: key);
 

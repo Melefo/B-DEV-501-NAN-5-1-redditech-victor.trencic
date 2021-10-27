@@ -1,13 +1,13 @@
+import 'package:app/controllers/reddit_client.dart';
 import 'package:app/controllers/reddit_offline.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../roddit_colors.dart';
 
 class NavigationFilterWidget extends StatefulWidget {
-  final Function(OfflineGetType) callback;
+  final Function(PostType) callback;
 
   const NavigationFilterWidget({Key? key, required this.callback}) : super(key: key);
 
@@ -16,14 +16,14 @@ class NavigationFilterWidget extends StatefulWidget {
 }
 
 class _NavigationFilterWidget extends State<NavigationFilterWidget> {
-  OfflineGetType _value = OfflineGetType.hot;
+  PostType _value = PostType.hot;
 
   @override
   Widget build(BuildContext context) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          PopupMenuButton<OfflineGetType>(
+          PopupMenuButton<PostType>(
             color: RodditColors.pink,
             icon: const Icon(
                 Icons.filter_list_rounded,
@@ -36,38 +36,38 @@ class _NavigationFilterWidget extends State<NavigationFilterWidget> {
                   Icon(Icons.local_fire_department, color: Colors.red),
                   Text("Hot", style: TextStyle(color: Colors.white,))
                 ]),
-                value: OfflineGetType.hot,
+                value: PostType.hot,
               ),
               PopupMenuItem(
                 child: Row(children: const [
                   Icon(Icons.verified_outlined, color: Colors.lightGreen),
                   Text("New", style: TextStyle(color: Colors.white,))
                 ]),
-                value: OfflineGetType.newest,
+                value: PostType.newest,
               ),
               PopupMenuItem(
                 child: Row(children: const [
                   Icon(Icons.moving_rounded, color: Colors.deepPurple),
                   Text("Rising", style: TextStyle(color: Colors.white,))
                 ]),
-                value: OfflineGetType.rising,
+                value: PostType.rising,
               ),
               PopupMenuItem(
                 child: Row(children: const [
                   Icon(Icons.bar_chart_rounded, color: Colors.tealAccent),
                   Text("Top", style: TextStyle(color: Colors.white,))
                 ]),
-                value: OfflineGetType.top,
+                value: PostType.top,
               ),
               PopupMenuItem(
                 child: Row(children: const [
                   Icon(Icons.flash_on_rounded, color: Colors.amber),
                   Text("Controversial", style: TextStyle(color: Colors.white,))
                 ]),
-                value: OfflineGetType.controversial,
+                value: PostType.controversial,
               ),
             ],
-            onSelected: (OfflineGetType newValue) {
+            onSelected: (PostType newValue) {
               setState(() {
                 _value = newValue;
                 widget.callback(newValue);

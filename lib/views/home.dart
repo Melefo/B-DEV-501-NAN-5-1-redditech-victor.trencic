@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:app/controllers/reddit_client.dart';
-import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
 import 'package:app/models/reddit_post.dart';
 import 'package:app/controllers/reddit_offline.dart';
+import 'package:app/widget/post_widget.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +23,11 @@ class Home extends StatefulWidget {
 
 //state
 class _Home extends StateMVC<Home> {
-  @override
-  final RedditClient controller = RedditClient();
+  final RedditClient client = RedditClient();
   final RedditOffline offline = RedditOffline();
   final ScrollController _controller = ScrollController();
   final List<RedditPost> posts = [];
-  OfflineGetType currentType = OfflineGetType.hot;
+  PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
 
@@ -41,13 +40,18 @@ class _Home extends StateMVC<Home> {
   void listen() {
     _end = false;
     _stream.cancel();
-    _stream = offline.getPosts(currentType).listen((event) {
-      setState(() {
-        posts.add(event);
+    if (client.isConnected) {
+      //_stream = client
+    }
+    else {
+      _stream = offline.getPosts(currentType).listen((event) {
+        setState(() {
+          posts.add(event);
+        });
+      }, onDone: () {
+        _end = true;
       });
-    }, onDone: () {
-      _end = true;
-    });
+    }
   }
 
   @override
@@ -62,7 +66,7 @@ class _Home extends StateMVC<Home> {
     });
   }
 
-  void filter(OfflineGetType newType) {
+  void filter(PostType newType) {
     currentType = newType;
     emptyPosts();
   }
@@ -82,48 +86,7 @@ class _Home extends StateMVC<Home> {
           body: ListView.separated(
             padding: const EdgeInsets.all(20.0),
             itemBuilder: (context, index) {
-              return ListTile(
-                tileColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)
-                ),
-                trailing: posts[index].thumbnail != null ? Image.network(
-                    posts[index].thumbnail!,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover
-                ) : null,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text.rich(
-                        TextSpan(children: <TextSpan>[
-                          TextSpan(
-                              text: posts[index].author,
-                              style: TextStyle(
-                                  color: RodditColors.pink,
-                                  fontWeight: FontWeight.bold)
-                          ),
-                          const TextSpan(text: " in "),
-                          TextSpan(
-                              text: posts[index].subreddit,
-                              style: TextStyle(
-                                  color: RodditColors.blue,
-                                  fontWeight: FontWeight.bold)
-                          )
-                        ]
-                        ),
-                        style: const TextStyle(fontSize: 14)
-                    ),
-                    Text(posts[index].upvotes.toString(),
-                        style: const TextStyle(color: Colors.black45)
-                    )
-                  ],
-                ),
-                subtitle: Text(posts[index].description,
-                    style: const TextStyle(color: Colors.black)
-                ),
-              );
+              return PostWidget(post: posts[index]);
             },
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(

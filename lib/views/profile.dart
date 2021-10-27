@@ -39,7 +39,7 @@ class _Profile extends StateMVC<Profile> {
           for (var value in list["listing"]) {
             if (value is Submission) {
               Submission submission = value;
-              texts.add(Post(submission: submission));
+              texts.add(SubmissionWidget(data: submission));
             }
           }
         }
