@@ -21,10 +21,12 @@ class Settings extends StatefulWidget {
 
 //state
 class _Settings extends StateMVC<Settings> {
+  final RedditClient client = RedditClient();
+
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        drawer: const NavigationDrawerWidget(),
+        drawer: NavigationDrawerWidget(),
         appBar: const NavigationTopBarWidget(title: "Settings"),
         bottomNavigationBar: NavigationBotBarWidget(),
         floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, "/")),
