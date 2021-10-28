@@ -36,7 +36,9 @@ class _Subreddit extends StateMVC<SubredditView> {
 
   void emptyPosts() {
     client.resetSubPosts(widget.sub!.displayName, currentType);
-    setState(() => posts.clear());
+    setState(() {
+      posts.clear();
+    });
     listen();
   }
 
@@ -83,7 +85,7 @@ class _Subreddit extends StateMVC<SubredditView> {
     return Scaffold(
           drawer: NavigationDrawerWidget(callback: emptyPosts),
           appBar: NavigationTopBarWidget(title: widget.sub!.title),
-          bottomNavigationBar: NavigationBotBarWidget(callback: filter),
+          bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: widget.sub),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
               onPressed: emptyPosts

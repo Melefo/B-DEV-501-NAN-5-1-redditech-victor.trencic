@@ -48,10 +48,11 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ? NetworkImage(sub.iconImage.toString())
                   : null,
             ),
-            title: Text(sub.title),
+            title: Text("/r/" + sub.displayName),
             onTap: () {
               Navigator.pushNamed(context, SubredditView.routeName,
-                  arguments: SubredditArguments(sub: sub));            },
+                  arguments: SubredditArguments(sub: sub));
+              },
           ));
         });
       });
@@ -83,8 +84,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   );
                 },
                 child: CircleAvatar(
-                    child: client.isConnected ? Image.network(
-                        client.me!.iconImg!) : const Text("P"),
+                    backgroundImage: client.isConnected ?
+                    NetworkImage(client.me!.iconImg!) : null,
                     backgroundColor: const Color.fromRGBO(0, 0, 0, 0)
                 ),
               ),

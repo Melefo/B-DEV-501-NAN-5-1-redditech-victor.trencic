@@ -1,5 +1,6 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
+import 'package:app/extensions/subroddit.dart';
 import 'package:app/models/reddit_post.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
@@ -50,7 +51,7 @@ class _Profile extends StateMVC<ProfileView> {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: NavigationTopBarWidget(title: widget.title),
-      bottomNavigationBar: NavigationBotBarWidget(),
+      bottomNavigationBar: const NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
           onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
@@ -60,41 +61,52 @@ class _Profile extends StateMVC<ProfileView> {
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                  color: RodditColors.pink,
-                  image: DecorationImage(
-                      image: NetworkImage(client.me!.bannerImg!),
-                      fit: BoxFit.cover
-                  )
-              ),
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                      color: RodditColors.pink,
+                      image: DecorationImage(
+                          image: NetworkImage(client.me!.bannerImg!),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                ),
+                Container(
+                  transform: Matrix4.translationValues(0, 60, 0),
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 50,
+                        child: CircleAvatar(
+                          radius: 45,
+                          backgroundImage: NetworkImage(client.me!.iconImg!),
+                        ),
+                      ),
+                      Container(
+                          padding: const EdgeInsets.all(18),
+                          child: Text(client.me!.username,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32
+                              ))
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                transform: Matrix4.translationValues(0, -30, 0),
+                padding: const EdgeInsets.only(top: 60, left: 20),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          CircleAvatar(
-                            radius: 45,
-                            backgroundImage: NetworkImage(client.me!.iconImg!),
-                          ),
-                          Container(
-                              padding: const EdgeInsets.only(
-                                  left: 24, bottom: 10),
-                              child: Text(client.me!.username,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 32
-                                  ))
-                          )
-                        ],
-                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text("/u/" + client.me!.displayName,
