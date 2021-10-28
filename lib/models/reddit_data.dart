@@ -13,7 +13,7 @@ class RedditData {
         redirectUri: Uri.parse(const String.fromEnvironment("REDDIT_REDIRECT_URI"))
     );
 
-    authUrl = reddit.auth.url(["*"], userAgent, compactLogin: false);
+    authUrl = reddit.auth.url(["*"], userAgent, compactLogin: true);
   }
 
   bool get isConnected =>

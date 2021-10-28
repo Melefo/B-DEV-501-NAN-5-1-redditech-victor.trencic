@@ -10,48 +10,62 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: Colors.white,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5)
+    return Container(
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 12),
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Colors.white
       ),
-      trailing: post.thumbnail != null ? Image.network(
-          post.thumbnail!,
-          width: 50,
-          height: 50,
-          fit: BoxFit.cover
-      ) : null,
-      title: Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text.rich(
-              TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: post.author,
-                    style: TextStyle(
-                        color: RodditColors.pink,
-                        fontWeight: FontWeight.bold)
-                ),
-                const TextSpan(text: " in "),
-                TextSpan(
-                    text: post.subreddit,
-                    style: TextStyle(
-                        color: RodditColors.blue,
-                        fontWeight: FontWeight.bold)
-                )
-              ]
-              ),
-              style: const TextStyle(fontSize: 14)
+          Expanded(
+              flex: 8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.rich(
+                      TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: post.author,
+                            style: TextStyle(
+                                color: RodditColors.pink,
+                                fontWeight: FontWeight.bold)
+                        ),
+                        const TextSpan(text: " in "),
+                        TextSpan(
+                            text: post.subreddit,
+                            style: TextStyle(
+                                color: RodditColors.blue,
+                                fontWeight: FontWeight.bold)
+                        )
+                      ]
+                      ),
+                      style: const TextStyle(fontSize: 14)
+                  ),
+                  Text(post.description,
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ],
+              )
           ),
-          Text(post.upvotes.toString(),
-              style: const TextStyle(color: Colors.black45)
-          )
+          Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  Text(post.upvotes.toString(),
+                    style: const TextStyle(color: Colors.black45),
+                  ),
+                  if (post.thumbnail != null) Image.network(
+                      post.thumbnail!,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover
+                  )
+                ],
+              )),
         ],
-      ),
-      subtitle: Text(post.description,
-          style: const TextStyle(color: Colors.black)
       ),
     );
   }
-
 }

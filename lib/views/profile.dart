@@ -1,11 +1,12 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
+import 'package:app/models/reddit_post.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/widget/submission_widget.dart';
+import 'package:app/widget/post_widget.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
@@ -39,7 +40,7 @@ class _Profile extends StateMVC<ProfileView> {
     client.me!.submissions.newest().listen((event) async {
       var submission = event as Submission;
       setState(() {
-        texts.add(SubmissionWidget(data: submission));
+        texts.add(PostWidget(post: RedditPost.fromJson(submission.data!)));
       });
     });
   }
