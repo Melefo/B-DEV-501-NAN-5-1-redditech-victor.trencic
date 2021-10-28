@@ -30,7 +30,7 @@ class RedditOffline {
     _last[type] = "";
   }
 
-  Stream<RedditPost> getPosts(PostType type, {int limits = 100}) async* {
+  Stream<RedditPost> getPosts(PostType type, {int limits = 25}) async* {
     Response res = await get(Uri.https(_base, _path[type]!, {
       "limits": limits.toString(),
       "after": _last[type]

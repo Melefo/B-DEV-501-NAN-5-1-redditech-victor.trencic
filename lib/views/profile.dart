@@ -11,18 +11,22 @@ import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 //view
-class Profile extends StatefulWidget {
+class ProfileView extends StatefulWidget {
   final String title;
 
-  const Profile({Key? key, required this.title}) : super(key: key);
+  static String routeName = "/profile";
+
+  const ProfileView({Key? key, required this.title}) : super(key: key);
 
   @override
-  StateMVC<Profile> createState() => _Profile();
+  StateMVC<ProfileView> createState() => _Profile();
 }
 
 //state
-class _Profile extends StateMVC<Profile> {
+class _Profile extends StateMVC<ProfileView> {
   final RedditClient client = RedditClient();
   final List<Widget> texts = [];
 
@@ -44,11 +48,11 @@ class _Profile extends StateMVC<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
-      appBar: const NavigationTopBarWidget(title: "Profile"),
+      appBar: NavigationTopBarWidget(title: widget.title),
       bottomNavigationBar: const NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
-          onPressed: () => Navigator.pushNamed(context, "/")),
+          onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
           scrollDirection: Axis.vertical,

@@ -1,7 +1,10 @@
+import 'package:app/arguments/sub_args.dart';
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
 import 'package:app/roddit_colors.dart';
-import 'package:draw/draw.dart';
+import 'package:app/views/home.dart';
+import 'package:app/views/profile.dart';
+import 'package:app/views/subreddit.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +49,9 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   : null,
             ),
             title: Text(sub.title),
+            onTap: () {
+              Navigator.pushNamed(context, SubredditView.routeName,
+                  arguments: SubredditArguments(sub: sub));            },
           ));
         });
       });
@@ -73,7 +79,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   }
                   Navigator.pushNamed(
                       context,
-                      "/profile"
+                      ProfileView.routeName
                   );
                 },
                 child: CircleAvatar(
@@ -97,7 +103,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ),
                   title: const Text("Home"),
                   onTap: () {
-                    Navigator.pushNamed(context, "/");
+                    Navigator.pushNamed(context, HomeView.routeName);
                   },
                 ), ...list
               ],

@@ -1,6 +1,7 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/controllers/reddit_offline.dart';
 import 'package:app/roddit_colors.dart';
+import 'package:app/views/settings.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class NavigationBotBarWidget extends StatelessWidget {
           NavigationFilterWidget(callback: callback),
           const Spacer(),
           IconButton(icon: const Icon(Icons.settings, color: Colors.white), onPressed: () {
-            Navigator.pushNamed(context, "/settings");
+            Navigator.pushNamed(context, SettingsView.routeName);
           }),
         ]
       ),

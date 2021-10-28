@@ -7,18 +7,22 @@ import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 //view
-class Settings extends StatefulWidget {
+class SettingsView extends StatefulWidget {
   final String title;
 
-  const Settings({Key? key, required this.title}) : super(key: key);
+  static String routeName = "/settings";
+
+  const SettingsView({Key? key, required this.title}) : super(key: key);
 
   @override
-  StateMVC<Settings> createState() => _Settings();
+  StateMVC<SettingsView> createState() => _Settings();
 }
 
 //state
-class _Settings extends StateMVC<Settings> {
+class _Settings extends StateMVC<SettingsView> {
   @override
   final RedditClient client = RedditClient();
 
@@ -27,9 +31,9 @@ class _Settings extends StateMVC<Settings> {
   Widget build(BuildContext context) =>
       Scaffold(
         drawer: NavigationDrawerWidget(),
-        appBar: const NavigationTopBarWidget(title: "Settings"),
+        appBar: NavigationTopBarWidget(title: widget.title),
         bottomNavigationBar: const NavigationBotBarWidget(),
-        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, "/")),
+        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
 }

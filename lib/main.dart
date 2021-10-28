@@ -1,6 +1,7 @@
 import 'package:app/views/home.dart';
 import 'package:app/views/settings.dart';
 import 'package:app/views/profile.dart';
+import 'package:app/views/subreddit.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_application/view.dart'
     show AppMVC;
@@ -29,9 +30,10 @@ class Roddit extends AppMVC {
           ),
           initialRoute: '/',
           routes: {
-            '/': (context) => const Home(title: "Roddit"),
-            '/settings': (context) => const Settings(title: "Settings"),
-            '/profile': (context) => const Profile(title: "Profile")
+            HomeView.routeName: (context) => const HomeView(title: "Roddit"),
+            SettingsView.routeName: (context) => const SettingsView(title: "Settings"),
+            ProfileView.routeName: (context) => const ProfileView(title: "Profile"),
+            SubredditView.routeName: (context) => SubredditView()
           }
       );
 }

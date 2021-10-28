@@ -1,32 +1,33 @@
 import 'dart:async';
+import 'package:app/arguments/sub_args.dart';
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
 import 'package:app/models/reddit_post.dart';
-import 'package:app/controllers/reddit_offline.dart';
 import 'package:app/widget/post_widget.dart';
+import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
 //view
-class HomeView extends StatefulWidget {
-  final String title;
+class SubredditView extends StatefulWidget {
+  Subreddit? sub;
 
-  static String routeName = "/";
+  static String routeName = "/sub";
 
-  const HomeView({Key? key, required this.title}) : super(key: key);
+  SubredditView({Key? key}) : super(key: key);
 
   @override
-  StateMVC<HomeView> createState() => _Home();
+  StateMVC<SubredditView> createState() => _Subreddit();
 }
 
 //state
-class _Home extends StateMVC<HomeView> {
+class _Subreddit extends StateMVC<SubredditView> {
+  bool first = false;
   final RedditClient client = RedditClient();
-  final RedditOffline offline = RedditOffline();
   final ScrollController _controller = ScrollController();
   final List<RedditPost> posts = [];
   PostType currentType = PostType.hot;
@@ -34,12 +35,7 @@ class _Home extends StateMVC<HomeView> {
   bool _end = false;
 
   void emptyPosts() {
-    if (client.isConnected) {
-      client.resetPosts(currentType);
-    }
-    else {
-      offline.resetPosts(currentType);
-    }
+    //offline.resetPosts(currentType);
     setState(() => posts.clear());
     listen();
   }
@@ -47,23 +43,14 @@ class _Home extends StateMVC<HomeView> {
   void listen() {
     _end = false;
     _stream.cancel();
-    if (client.isConnected) {
-      _stream = client.getFrontPosts(currentType).listen((event) {
+    if (client.isConnected && widget.sub != null) {
+      _stream = client.getSubPosts(widget.sub!.displayName, currentType).listen((event) {
         setState(() {
           posts.add(event);
         });
       }, onDone: () {
         _end = true;
       });
-    }
-    else {
-      _stream = offline.getPosts(currentType).listen((event) {
-        setState(() {
-          posts.add(event);
-        });
-      }, onDone: () {
-    _end = true;
-    });
     }
   }
 
@@ -85,10 +72,17 @@ class _Home extends StateMVC<HomeView> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as SubredditArguments;
+    widget.sub = args.sub;
+    if (!first) {
+      emptyPosts();
+      first = true;
+    }
+
+    return Scaffold(
           drawer: NavigationDrawerWidget(callback: emptyPosts),
-          appBar: NavigationTopBarWidget(title: widget.title),
+          appBar: NavigationTopBarWidget(title: widget.sub!.title),
           bottomNavigationBar: NavigationBotBarWidget(callback: filter),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
@@ -113,4 +107,5 @@ class _Home extends StateMVC<HomeView> {
             controller: _controller,
           )
       );
+  }
 }
