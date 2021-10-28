@@ -34,19 +34,25 @@ class _RowButtonWidget extends State<RowButtonWidget> {
                 ]
             ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.textContent),
-              Switch(
-                value: widget.prefs.data[widget.field],
-                activeColor: RodditColors.pink,
-                inactiveThumbColor: RodditColors.blue,
-                onChanged: (bool value) async {
-                  setState(() {
-                    widget.prefs.data[widget.field] = value;
-                  });
-                  await client.savePrefs(widget.prefs);
-                },
+              Padding(
+                padding: const EdgeInsets.only(left: 60),
+                child: Text(widget.textContent),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 50),
+                child: Switch(
+                  value: widget.prefs.data[widget.field],
+                  activeColor: RodditColors.pink,
+                  inactiveThumbColor: RodditColors.blue,
+                  onChanged: (bool value) async {
+                    setState(() {
+                      widget.prefs.data[widget.field] = value;
+                    });
+                    await client.savePrefs(widget.prefs);
+                  },
+                ),
               ),
             ],
           ),
