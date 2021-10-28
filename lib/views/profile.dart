@@ -50,7 +50,7 @@ class _Profile extends StateMVC<ProfileView> {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: NavigationTopBarWidget(title: widget.title),
-      bottomNavigationBar: const NavigationBotBarWidget(),
+      bottomNavigationBar: NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
           onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),

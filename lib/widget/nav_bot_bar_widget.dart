@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 import 'nav_filter_widget.dart';
 
 class NavigationBotBarWidget extends StatelessWidget {
+  RedditClient client = RedditClient();
   final Function(PostType)? callback;
 
-  const NavigationBotBarWidget({Key? key, this.callback}) : super(key: key);
+  NavigationBotBarWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +21,12 @@ class NavigationBotBarWidget extends StatelessWidget {
         children: [
           NavigationFilterWidget(callback: callback),
           const Spacer(),
+
+          if (client.isConnected)
           IconButton(icon: const Icon(Icons.settings, color: Colors.white), onPressed: () {
             Navigator.pushNamed(context, SettingsView.routeName);
           }),
-        ]
+        ],
       ),
       shape: const CircularNotchedRectangle(),
       color: RodditColors.pink,
