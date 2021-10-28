@@ -35,7 +35,7 @@ class _Subreddit extends StateMVC<SubredditView> {
   bool _end = false;
 
   void emptyPosts() {
-    //offline.resetPosts(currentType);
+    client.resetSubPosts(widget.sub!.displayName, currentType);
     setState(() => posts.clear());
     listen();
   }
