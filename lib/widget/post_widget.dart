@@ -24,24 +24,27 @@ class PostWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text.rich(
-                      TextSpan(children: <TextSpan>[
-                        TextSpan(
-                            text: post.author,
-                            style: TextStyle(
-                                color: RodditColors.pink,
-                                fontWeight: FontWeight.bold)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text.rich(
+                        TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: post.author,
+                              style: TextStyle(
+                                  color: RodditColors.pink,
+                                  fontWeight: FontWeight.bold)
+                          ),
+                          const TextSpan(text: " in "),
+                          TextSpan(
+                              text: post.subreddit,
+                              style: TextStyle(
+                                  color: RodditColors.blue,
+                                  fontWeight: FontWeight.bold)
+                          )
+                        ]
                         ),
-                        const TextSpan(text: " in "),
-                        TextSpan(
-                            text: post.subreddit,
-                            style: TextStyle(
-                                color: RodditColors.blue,
-                                fontWeight: FontWeight.bold)
-                        )
-                      ]
-                      ),
-                      style: const TextStyle(fontSize: 14)
+                        style: const TextStyle(fontSize: 14)
+                    ),
                   ),
                   Text(post.description,
                     style: const TextStyle(color: Colors.black),
