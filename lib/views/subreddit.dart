@@ -14,11 +14,9 @@ import 'package:flutter/material.dart';
 
 //view
 class SubredditView extends StatefulWidget {
-  Subreddit? sub;
-
   static String routeName = "/sub";
 
-  SubredditView({Key? key}) : super(key: key);
+  const SubredditView({Key? key}) : super(key: key);
 
   @override
   StateMVC<SubredditView> createState() => _Subreddit();
@@ -33,9 +31,10 @@ class _Subreddit extends StateMVC<SubredditView> {
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
+  Subreddit? sub;
 
   void emptyPosts() {
-    client.resetSubPosts(widget.sub!.displayName, currentType);
+    client.resetSubPosts(sub!.displayName, currentType);
     setState(() {
       posts.clear();
     });
@@ -45,8 +44,8 @@ class _Subreddit extends StateMVC<SubredditView> {
   void listen() {
     _end = false;
     _stream.cancel();
-    if (client.isConnected && widget.sub != null) {
-      _stream = client.getSubPosts(widget.sub!.displayName, currentType).listen((event) {
+    if (client.isConnected && sub != null) {
+      _stream = client.getSubPosts(sub!.displayName, currentType).listen((event) {
         setState(() {
           posts.add(event);
         });
@@ -76,7 +75,7 @@ class _Subreddit extends StateMVC<SubredditView> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as SubredditArguments;
-    widget.sub = args.sub;
+    sub = args.sub;
     if (!first) {
       emptyPosts();
       first = true;
@@ -84,8 +83,8 @@ class _Subreddit extends StateMVC<SubredditView> {
 
     return Scaffold(
           drawer: NavigationDrawerWidget(callback: emptyPosts),
-          appBar: NavigationTopBarWidget(title: widget.sub!.title),
-          bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: widget.sub),
+          appBar: NavigationTopBarWidget(title: sub!.title),
+          bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: sub),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
               onPressed: emptyPosts

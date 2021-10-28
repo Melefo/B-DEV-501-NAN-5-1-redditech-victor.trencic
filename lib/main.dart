@@ -33,7 +33,7 @@ class Roddit extends AppMVC {
             HomeView.routeName: (context) => const HomeView(title: "Roddit"),
             SettingsView.routeName: (context) => const SettingsView(title: "Settings"),
             ProfileView.routeName: (context) => const ProfileView(title: "Profile"),
-            SubredditView.routeName: (context) => SubredditView()
+            SubredditView.routeName: (context) => const SubredditView()
           }
       );
 }

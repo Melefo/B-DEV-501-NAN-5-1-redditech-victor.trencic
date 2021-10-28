@@ -1,6 +1,5 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
-import 'package:app/extensions/subroddit.dart';
 import 'package:app/models/reddit_post.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
@@ -49,7 +48,7 @@ class _Profile extends StateMVC<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
+      drawer: const NavigationDrawerWidget(),
       appBar: NavigationTopBarWidget(title: widget.title),
       bottomNavigationBar: const NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(

@@ -30,8 +30,9 @@ class _SettingsButtonWidget extends State<SettingsButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (prefs == null)
+    if (prefs == null) {
       return ListView();
+    }
     return ListView (
       children: [
         Column (children: [

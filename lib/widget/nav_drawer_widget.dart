@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
-  NavigationDrawerWidget({Key? key, this.callback}) : super(key: key);
+  const NavigationDrawerWidget({Key? key, this.callback}) : super(key: key);
 
-  Function()? callback;
+  final Function()? callback;
 
   @override
   State<StatefulWidget> createState() => _NavigationDrawerWidget();

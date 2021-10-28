@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import '../roddit_colors.dart';
 
 class PostWidget extends StatelessWidget {
-  RedditPost post;
+  final RedditPost post;
 
-  PostWidget({Key? key, required this.post}) : super(key: key);
+  const PostWidget({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
