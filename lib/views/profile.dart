@@ -62,18 +62,21 @@ class _Profile extends StateMVC<ProfileView> {
             Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                      color: RodditColors.pink,
-                      image: DecorationImage(
-                          image: NetworkImage(client.me!.bannerImg!),
-                          fit: BoxFit.cover
-                      )
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 60),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: RodditColors.pink,
+                        image: DecorationImage(
+                            image: NetworkImage(client.me!.bannerImg!),
+                            fit: BoxFit.cover
+                        )
+                    ),
                   ),
                 ),
                 Container(
-                  transform: Matrix4.translationValues(0, 60, 0),
+
                   padding: const EdgeInsets.only(left: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -88,12 +91,24 @@ class _Profile extends StateMVC<ProfileView> {
                         ),
                       ),
                       Container(
-                          padding: const EdgeInsets.all(18),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 6
+                          ),
                           child: Text(client.me!.username,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 32
                               ))
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 42, top: 12),
+                        child: OutlinedButton(
+                          onPressed: () {
+                            print('Received click');
+                          },
+                          child: const Text('Click Me'),
+                        ),
                       )
                     ],
                   ),
@@ -101,7 +116,7 @@ class _Profile extends StateMVC<ProfileView> {
               ],
             ),
             Container(
-                padding: const EdgeInsets.only(top: 60, left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
