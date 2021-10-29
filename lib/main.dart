@@ -28,11 +28,13 @@ class Roddit extends AppMVC {
                   )
               )
           ),
-          initialRoute: '/',
+          initialRoute: HomeView.routeName,
           routes: {
             HomeView.routeName: (context) => const HomeView(title: "Roddit"),
-            SettingsView.routeName: (context) => const SettingsView(title: "Settings"),
-            ProfileView.routeName: (context) => const ProfileView(title: "Profile"),
+            SettingsView.routeName: (context) =>
+            const SettingsView(title: "Settings"),
+            ProfileView.routeName: (context) =>
+            const ProfileView(title: "Profile"),
             SubredditView.routeName: (context) => const SubredditView()
           }
       );

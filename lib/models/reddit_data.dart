@@ -6,7 +6,7 @@ class RedditData {
   String userAgent = const String.fromEnvironment("REDDIT_USER_AGENT");
   Redditor? me;
 
-  RedditData() {
+  RedditData({String? token}) {
     reddit = Reddit.createInstalledFlowInstance(
         clientId: const String.fromEnvironment("REDDIT_CLIENT_ID"),
         userAgent: userAgent,

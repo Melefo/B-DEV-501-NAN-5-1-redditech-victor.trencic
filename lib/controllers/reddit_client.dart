@@ -16,7 +16,7 @@ enum PostType {
 }
 
 class RedditClient extends ControllerMVC {
-  factory RedditClient() => _this ??= RedditClient._();
+  factory RedditClient({String? token}) => _this ??= RedditClient._(token: token);
 
   static RedditClient? _this;
   final Map<PostType, String> _last = {
@@ -32,8 +32,8 @@ class RedditClient extends ControllerMVC {
 
   late RedditData _model;
 
-  RedditClient._() {
-    _model = RedditData();
+  RedditClient._({String? token}) {
+    _model = RedditData(token: token);
   }
 
   bool get isConnected => _model.isConnected;

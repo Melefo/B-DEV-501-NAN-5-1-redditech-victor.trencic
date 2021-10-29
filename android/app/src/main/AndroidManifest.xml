@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.melefo.redditech">
+    package="com.melefo.roddit">
    <application
         android:label="Roddit"
         android:icon="@mipmap/ic_launcher">
