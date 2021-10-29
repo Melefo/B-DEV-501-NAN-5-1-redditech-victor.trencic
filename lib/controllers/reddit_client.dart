@@ -73,7 +73,8 @@ class RedditClient extends ControllerMVC {
 
   Stream<Submission> getSubPosts(String name, PostType type,
       {int limits = 25}) async* {
-    var sub = _model.reddit.subreddit(name);
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
+    var sub = reddit.subreddit(name);
     Stream<UserContent> stream;
 
     switch (type) {
