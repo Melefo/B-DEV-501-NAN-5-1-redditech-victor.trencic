@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:app/main.dart';
 import 'package:app/models/reddit_data.dart';
 import 'package:app/models/reddit_prefs.dart';
-import 'package:app/models/reddit_post.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
 
 enum PostType {
   newest,
@@ -29,17 +29,29 @@ class RedditClient extends ControllerMVC {
     PostType.controversial: ""
   };
   final Map<String, Map<PostType, String>> _subLast = {
-
   };
 
   late RedditData _model;
+  late Reddit _modelDisconnect;
 
   static Future<void> init({String? token}) async {
     var client = RedditClient(token: token);
+    String? uuid = await Roddit.storage.read(key: RedditData.uuidKey);
+    if (uuid == null) {
+      uuid = const Uuid().v4();
+      await Roddit.storage.write(key: RedditData.uuidKey, value: uuid);
+    }
+    client._modelDisconnect = await Reddit.createUntrustedReadOnlyInstance(
+        clientId: const String.fromEnvironment("REDDIT_CLIENT_ID"),
+        deviceId: uuid,
+        userAgent: RedditData.userAgent
+    );
     if (token != null) {
       client._model.me = await client._model.reddit.user.me();
     }
   }
+
+  Reddit get test => _modelDisconnect;
 
   RedditClient._({String? token}) {
     _model = RedditData(token: token);
@@ -59,7 +71,8 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-  Stream<RedditPost> getSubPosts(String name, PostType type, {int limits = 25}) async* {
+  Stream<Submission> getSubPosts(String name, PostType type,
+      {int limits = 25}) async* {
     var sub = _model.reddit.subreddit(name);
     Stream<UserContent> stream;
 
@@ -101,7 +114,7 @@ class RedditClient extends ControllerMVC {
     await for (final event in stream) {
       var submission = event as Submission;
 
-      yield RedditPost.fromJson(submission.data as Map<String, dynamic>);
+      yield submission;
       if (!_last.containsKey(name)) {
         _subLast[name] = <PostType, String>{};
       }
@@ -109,49 +122,53 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-    Stream<RedditPost> getFrontPosts(PostType type, {int limits = 25}) async* {
+  Stream<Submission> getFrontPosts(PostType type, {int limits = 25}) async* {
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
     Stream<UserContent> stream;
 
     switch (type) {
       case PostType.controversial:
         {
-          stream = _model.reddit.front.controversial(limit: limits, after: _last[type]);
+          stream = reddit.front.controversial(
+              limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.hot:
         {
-          stream = _model.reddit.front.hot(limit: limits, after: _last[type]);
+          stream = reddit.front.hot(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.newest:
         {
-          stream = _model.reddit.front.newest(limit: limits, after: _last[type]);
+          stream =
+              reddit.front.newest(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.rising:
         {
-          stream = _model.reddit.front.rising(limit: limits, after: _last[type]);
+          stream =
+              reddit.front.rising(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.top:
         {
-          stream = _model.reddit.front.top(limit: limits, after: _last[type]);
+          stream = reddit.front.top(limit: limits, after: _last[type]);
         }
         break;
     }
     await for (final event in stream) {
       var submission = event as Submission;
 
-      yield RedditPost.fromJson(submission.data as Map<String, dynamic>);
+      yield submission;
       _last[type] = "t3_" + submission.id!;
     }
   }
 
-    Future<void> connect(BuildContext context) async {
+  Future<void> connect(BuildContext context) async {
     try {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
@@ -172,7 +189,6 @@ class RedditClient extends ControllerMVC {
       Navigator.pop(context);
       return;
     }
-
   }
 
   Future<void> savePrefs(RedditPrefs prefs) async {

@@ -4,9 +4,8 @@ import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/models/reddit_post.dart';
-import 'package:app/controllers/reddit_offline.dart';
 import 'package:app/widget/post_widget.dart';
+import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -26,20 +25,14 @@ class HomeView extends StatefulWidget {
 //state
 class _Home extends StateMVC<HomeView> {
   final RedditClient client = RedditClient();
-  final RedditOffline offline = RedditOffline();
   final ScrollController _controller = ScrollController();
-  final List<RedditPost> posts = [];
+  final List<Submission> posts = [];
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
 
   void emptyPosts() {
-    if (client.isConnected) {
-      client.resetPosts(currentType);
-    }
-    else {
-      offline.resetPosts(currentType);
-    }
+    client.resetPosts(currentType);
     setState(() => posts.clear());
     listen();
   }
@@ -47,24 +40,13 @@ class _Home extends StateMVC<HomeView> {
   void listen() {
     _end = false;
     _stream.cancel();
-    if (client.isConnected) {
-      _stream = client.getFrontPosts(currentType).listen((event) {
-        setState(() {
-          posts.add(event);
-        });
-      }, onDone: () {
-        _end = true;
+    _stream = client.getFrontPosts(currentType).listen((event) {
+      setState(() {
+        posts.add(event);
       });
-    }
-    else {
-      _stream = offline.getPosts(currentType).listen((event) {
-        setState(() {
-          posts.add(event);
-        });
-      }, onDone: () {
-    _end = true;
+    }, onDone: () {
+      _end = true;
     });
-    }
   }
 
   @override

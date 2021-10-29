@@ -4,6 +4,7 @@ class RedditData {
   late Reddit reddit;
   late Uri authUrl;
   static String tokenKey = "user_token";
+  static String uuidKey = "user_uuid";
   static String userAgent = const String.fromEnvironment("REDDIT_USER_AGENT");
   Redditor? me;
 
