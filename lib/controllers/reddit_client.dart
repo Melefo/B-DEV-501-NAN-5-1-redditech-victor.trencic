@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/main.dart';
 import 'package:app/models/reddit_data.dart';
 import 'package:app/models/reddit_prefs.dart';
 import 'package:app/models/reddit_post.dart';
@@ -16,7 +17,8 @@ enum PostType {
 }
 
 class RedditClient extends ControllerMVC {
-  factory RedditClient({String? token}) => _this ??= RedditClient._(token: token);
+  factory RedditClient({String? token}) =>
+      _this ??= RedditClient._(token: token);
 
   static RedditClient? _this;
   final Map<PostType, String> _last = {
@@ -31,6 +33,13 @@ class RedditClient extends ControllerMVC {
   };
 
   late RedditData _model;
+
+  static Future<void> init({String? token}) async {
+    var client = RedditClient(token: token);
+    if (token != null) {
+      client._model.me = await client._model.reddit.user.me();
+    }
+  }
 
   RedditClient._({String? token}) {
     _model = RedditData(token: token);
@@ -146,11 +155,15 @@ class RedditClient extends ControllerMVC {
     try {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
-          callbackUrlScheme: _model.userAgent.toLowerCase());
+          callbackUrlScheme: RedditData.userAgent.toLowerCase());
       String? code = Uri
           .parse(auth)
           .queryParameters["code"];
       await _model.reddit.auth.authorize(code.toString());
+      await Roddit.storage.write(
+          key: RedditData.tokenKey,
+          value: _model.reddit.auth.credentials.toJson()
+      );
       _model.me = await _model.reddit.user.me();
       Navigator.pop(context);
     }
