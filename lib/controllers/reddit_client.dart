@@ -50,6 +50,12 @@ class RedditClient extends ControllerMVC {
     }
   }
 
+  Future<List<SubredditRef>> getSubsFromName(String query, bool over_18) async {
+    return (
+        await _model.reddit.subreddits.searchByName(query, includeNsfw: over_18)
+    );
+  }
+
   Stream<RedditPost> getSubPosts(String name, PostType type, {int limits = 25}) async* {
     var sub = _model.reddit.subreddit(name);
     Stream<UserContent> stream;

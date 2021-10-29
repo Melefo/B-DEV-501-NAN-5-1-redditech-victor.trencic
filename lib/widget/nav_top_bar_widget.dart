@@ -1,11 +1,30 @@
+import 'dart:core';
+
+import 'package:app/arguments/sub_args.dart';
+import 'package:app/controllers/reddit_client.dart';
+import 'package:app/extensions/rodditor.dart';
+import 'package:app/models/reddit_prefs.dart';
+import 'package:app/views/subreddit.dart';
+import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
 class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final RedditClient client = RedditClient();
+  late RedditPrefs prefs;
+  late bool over_18 = false;
 
-  const NavigationTopBarWidget({Key? key, required this.title}) : super(key: key);
+  NavigationTopBarWidget({Key? key, required this.title}) : super(key: key)
+  {
+    if (client.isConnected) {
+      client.me!.prefs.then((value) {
+        prefs = value;
+        over_18 = prefs.over18;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +34,7 @@ class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWid
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(icon: const Icon(Icons.search), onPressed: () {
-            showSearch(context: context, delegate: ExSearch());
+            showSearch(context: context, delegate: ExSearch(client: client, over_18: over_18));
           }),
         ),
       ]
@@ -26,23 +45,49 @@ class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWid
   Size get preferredSize => const Size.fromHeight(50);
 }
 
-class ExSearch extends SearchDelegate<String> {
-  final exemple = [
-    'r/abc',
-    'r/edf',
-    'r/opm',
-  ];
+class StatefulWrapper extends StatefulWidget {
+  final Function onInit;
+  final Widget child;
+  const StatefulWrapper({required this.onInit, required this.child});
 
-  final recent = [
-    'r/abc',
-  ];
+  @override
+  _StatefulWrapperState createState() => _StatefulWrapperState();
+}
+
+class _StatefulWrapperState extends State<StatefulWrapper> {
+  @override
+  void initState() {
+    widget.onInit();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+}
+
+class ExSearch extends SearchDelegate<String> {
+  final RedditClient client;
+  final bool over_18;
+  late Future<List<SubredditRef>> subsTab = getSubs();
+
+  ExSearch({required this.client, required this.over_18});
+
+  Future<List<SubredditRef>> getSubs() async {
+    List<SubredditRef> subs = await client.getSubsFromName(query, over_18);
+    return subs;
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    IconButton(
-      icon: Icon(Icons.clear),
-      onPressed: () {},
-    );
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      )
+    ];
   }
 
   @override
@@ -54,43 +99,34 @@ class ExSearch extends SearchDelegate<String> {
   }
 
   @override
-  Widget buildResults(BuildContext context) =>
-      Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.star, size: 120),
-              SizedBox(height: 48),
-              Text(
-                  query,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 64,
-                    fontWeight: FontWeight.bold,
-                  )
-              )
-            ],
-          )
-      );
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
 
 
   @override
-  Widget buildSuggestions(BuildContext context) {
-    final sugg = recent;
+  Widget buildSuggestions(BuildContext context) =>
+      FutureBuilder<List<SubredditRef>>(
+          future: getSubs(),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<SubredditRef>> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final suggestion = snapshot.data![index].displayName;
 
-    return buildSuggestionsSucces(sugg);
-  }
-
-  Widget buildSuggestionsSucces(List<String> sugg) =>
-      ListView.builder(
-        itemCount: sugg.length,
-        itemBuilder: (context, index) {
-          final suggestion = sugg[index];
-
-          return ListTile(
-            leading: Icon(Icons.location_city),
-            title: Text(suggestion),
-          );
-        },
+                  return ListTile(
+                    onTap: () async {
+                      Navigator.pushNamed(context,SubredditView.routeName, arguments: SubredditArguments(sub: await snapshot.data![index].populate()));
+                    },
+                    title: Text("/r/" + suggestion),
+                  );
+                },
+              );
+            } else {
+              return Container();
+            }
+          }
       );
 }
