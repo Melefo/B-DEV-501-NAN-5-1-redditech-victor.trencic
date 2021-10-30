@@ -4,6 +4,7 @@ import 'package:app/views/home.dart';
 import 'package:app/views/settings.dart';
 import 'package:app/views/profile.dart';
 import 'package:app/views/subreddit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mvc_application/view.dart'
@@ -25,6 +26,7 @@ class Roddit extends AppMVC {
   @override
   Widget build(BuildContext context) =>
       MaterialApp(
+          debugShowCheckedModeBanner: kReleaseMode,
           title: "Roddit",
           theme: ThemeData(
               primarySwatch: RodditColors.pink,

@@ -81,26 +81,33 @@ class _Profile extends StateMVC<ProfileView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 50,
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundImage: NetworkImage(client.me!.iconImg!),
-                        ),
-                      ),
-                      Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 6
+                      Expanded(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 50,
+                            child: CircleAvatar(
+                              radius: 45,
+                              backgroundImage: NetworkImage(client.me!
+                                  .iconImg!),
+                            ),
                           ),
-                          child: Text(client.me!.username,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32
-                              )
-                          )
+                          flex: 2
                       ),
+                      Expanded(
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 6
+                              ),
+                              child: Text(client.me!.username,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              )
+                          ),
+                          flex: 8),
                     ],
                   ),
                 )
