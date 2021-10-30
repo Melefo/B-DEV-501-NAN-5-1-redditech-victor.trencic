@@ -1,6 +1,10 @@
+import 'package:app/arguments/sub_args.dart';
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
 import 'package:app/roddit_colors.dart';
+import 'package:app/views/home.dart';
+import 'package:app/views/profile.dart';
+import 'package:app/views/subreddit.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
@@ -8,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+  const NavigationDrawerWidget({Key? key, this.callback}) : super(key: key);
+
+  final Function()? callback;
 
   @override
   State<StatefulWidget> createState() => _NavigationDrawerWidget();
@@ -19,30 +25,30 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final client = RedditClient();
   final List<Widget> list = [];
 
+  void listen() {
+    client.me!.subreddits.listen((sub) async {
+      setState(() {
+        list.add(ListTile(
+          leading: CircleAvatar(
+            backgroundImage: sub.iconImage?.hasAbsolutePath ?? false
+                ? NetworkImage(sub.iconImage.toString())
+                : null,
+          ),
+          title: Text("/r/" + sub.displayName),
+          onTap: () {
+            Navigator.pushNamed(context, SubredditView.routeName,
+                arguments: SubredditArguments(sub: sub));
+          },
+        ));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    if (!client.isConnected) {
-      list.add(OutlinedButton(
-          onPressed: () => client.connect(context),
-          child: const Text("CONNECT")
-      ));
-    }
-    else {
-      client.me!.subreddits.listen((event) async {
-        var value = await event.fetch();
-        setState(() {
-          var sub = value as Subreddit;
-          list.add(ListTile(
-            leading: CircleAvatar(
-              backgroundImage: sub.iconImage?.hasAbsolutePath ?? false
-                  ? NetworkImage(sub.iconImage.toString())
-                  : null,
-            ),
-            title: Text(sub.title),
-          ));
-        });
-      });
+    if (client.isConnected) {
+      listen();
     }
   }
 
@@ -58,7 +64,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                       : "Roddit"
               ),
               accountEmail: Text(
-                  client.isConnected ? client.me!.fullname ?? "" : ""
+                  client.isConnected ? "/u/" + client.me!.displayName : ""
               ),
               currentAccountPicture: TextButton(
                 onPressed: () {
@@ -67,13 +73,14 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   }
                   Navigator.pushNamed(
                       context,
-                      "/profile"
+                      ProfileView.routeName
                   );
                 },
                 child: CircleAvatar(
-                    child: client.isConnected ? Image.network(
-                        client.me!.iconImg!) : const Text("P"),
-                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0)
+                  backgroundImage: client.isConnected ?
+                  NetworkImage(client.me!.iconImg!) : null,
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                  radius: 32,
                 ),
               ),
               decoration: BoxDecoration(
@@ -91,9 +98,22 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   ),
                   title: const Text("Home"),
                   onTap: () {
-                    Navigator.pushNamed(context, "/");
+                    Navigator.pushNamed(context, HomeView.routeName);
                   },
-                ), ...list
+                ),
+                if (!client.isConnected)
+                  OutlinedButton(
+                      onPressed: () async {
+                        await client.connect();
+                        if (client.isConnected && widget.callback != null) {
+                          listen();
+                          widget.callback!();
+                        }
+                      },
+                      child: const Text("CONNECT")
+                  )
+                ,
+                ...list
               ],
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
