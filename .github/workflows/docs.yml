@@ -31,7 +31,7 @@ jobs:
         run: rm -rf doc/ && dartdoc
 
       - name: Push Documentation
-        run: cd doc &&
+        run: cd doc/api &&
           git config --global user.email "42809472+Melefo@users.noreply.github.com" &&
           git config --global user.name "Melefo" &&
           git init &&
