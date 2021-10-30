@@ -5,6 +5,7 @@ import 'package:app/roddit_colors.dart';
 import 'package:app/views/home.dart';
 import 'package:app/views/profile.dart';
 import 'package:app/views/subreddit.dart';
+import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
