@@ -5,24 +5,28 @@ import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/widget/submission_widget.dart';
+import 'package:app/widget/post_widget.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 //view
-class Profile extends StatefulWidget {
+class ProfileView extends StatefulWidget {
   final String title;
 
-  const Profile({Key? key, required this.title}) : super(key: key);
+  static String routeName = "/profile";
+
+  const ProfileView({Key? key, required this.title}) : super(key: key);
 
   @override
-  StateMVC<Profile> createState() => _Profile();
+  StateMVC<ProfileView> createState() => _Profile();
 }
 
 //state
-class _Profile extends StateMVC<Profile> {
+class _Profile extends StateMVC<ProfileView> {
   final RedditClient client = RedditClient();
   final List<Widget> texts = [];
 
@@ -33,16 +37,9 @@ class _Profile extends StateMVC<Profile> {
       return;
     }
     client.me!.submissions.newest().listen((event) async {
-      var values = await event.fetch();
+      var submission = event as Submission;
       setState(() {
-        for (var list in values) {
-          for (var value in list["listing"]) {
-            if (value is Submission) {
-              Submission submission = value;
-              texts.add(Post(submission: submission));
-            }
-          }
-        }
+        texts.add(PostWidget(post: submission));
       });
     });
   }
@@ -51,60 +48,89 @@ class _Profile extends StateMVC<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavigationDrawerWidget(),
-      appBar: const NavigationTopBarWidget(title: "Profile"),
+      appBar: NavigationTopBarWidget(title: widget.title),
       bottomNavigationBar: const NavigationBotBarWidget(),
       floatingActionButton: NavigationFabButtonWidget(
           buttonIcon: Icons.home,
-          onPressed: () => Navigator.pushNamed(context, "/")),
+          onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: ListView(
           scrollDirection: Axis.vertical,
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                  color: RodditColors.pink,
-                  image: DecorationImage(
-                      image: NetworkImage(client.me!.bannerImg!),
-                      fit: BoxFit.cover
-                  )
-              ),
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 60),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: RodditColors.pink,
+                        image: DecorationImage(
+                            image: NetworkImage(client.me!.bannerImg!),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 50,
+                            child: CircleAvatar(
+                              radius: 45,
+                              backgroundImage: NetworkImage(client.me!
+                                  .iconImg!),
+                            ),
+                          ),
+                          flex: 2
+                      ),
+                      Expanded(
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 6
+                              ),
+                              child: Text(client.me!.username,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              )
+                          ),
+                          flex: 8),
+                    ],
+                  ),
+                )
+              ],
             ),
             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                transform: Matrix4.translationValues(0, -30, 0),
+                padding: const EdgeInsets.only(left: 20),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            radius: 45,
-                            backgroundImage: NetworkImage(client.me!.iconImg!),
-                          ),
-                          Container(
-                              padding: const EdgeInsets.only(
-                                  left: 24, bottom: 10),
-                              child: Text(client.me!.username,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 32
-                                  ))
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("/u/" + client.me!.displayName,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black45
+                                )
+                            ),
                           )
                         ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("/u/" + client.me!.displayName,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black45
-                            )
-                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
