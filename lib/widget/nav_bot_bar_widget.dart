@@ -3,6 +3,8 @@ import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
+import 'nev_filter_widget.dart';
+
 class NavigationBotBarWidget extends StatelessWidget {
 
   const NavigationBotBarWidget({Key? key}) : super(key: key);
@@ -12,16 +14,12 @@ class NavigationBotBarWidget extends StatelessWidget {
     return BottomAppBar(
       child: Row(
         children: [
-        IconButton(icon: const Icon(
-          Icons.filter_list_rounded,
-          color: Colors.white),
-          onPressed: () {}
-        ),
+          NavigationFilterWidget(),
           const Spacer(),
-        IconButton(icon: const Icon(Icons.settings, color: Colors.white), onPressed: () {
-          Navigator.pushNamed(context, "/settings");
-        }),
-      ],
+          IconButton(icon: const Icon(Icons.settings, color: Colors.white), onPressed: () {
+            Navigator.pushNamed(context, "/settings");
+          }),
+        ]
       ),
       shape: const CircularNotchedRectangle(),
       color: RodditColors.pink,

@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 class NavigationFabButtonWidget extends StatelessWidget {
 
   final IconData buttonIcon;
+  final VoidCallback? onPressed;
 
-  const NavigationFabButtonWidget({Key? key, required this.buttonIcon}) : super(key: key);
-  
+  const NavigationFabButtonWidget(
+      {Key? key, required this.buttonIcon, required this.onPressed})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(child: Icon(buttonIcon), onPressed: () {});
+    return FloatingActionButton(child: Icon(buttonIcon), onPressed: onPressed);
   }
 }

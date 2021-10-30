@@ -1,8 +1,9 @@
-import 'package:app/controllers/controller.dart';
+import 'package:app/controllers/reddit_client.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +21,15 @@ class Settings extends StatefulWidget {
 //state
 class _Settings extends StateMVC<Settings> {
   @override
-  final Controller controller = Controller();
+  final RedditClient controller = RedditClient();
 
   @override
-
   Widget build(BuildContext context) =>
-      const Scaffold(
-        drawer: NavigationDrawerWidget(),
-        appBar: NavigationTopBarWidget(title: "Settings"),
-        bottomNavigationBar: NavigationBotBarWidget(),
-        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home),
+      Scaffold(
+        drawer: const NavigationDrawerWidget(),
+        appBar: const NavigationTopBarWidget(title: "Settings"),
+        bottomNavigationBar: const NavigationBotBarWidget(),
+        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, "/")),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
 }
