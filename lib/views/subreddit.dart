@@ -5,7 +5,6 @@ import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/models/reddit_post.dart';
 import 'package:app/widget/post_widget.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
@@ -27,7 +26,7 @@ class _Subreddit extends StateMVC<SubredditView> {
   bool first = false;
   final RedditClient client = RedditClient();
   final ScrollController _controller = ScrollController();
-  final List<RedditPost> posts = [];
+  final List<Submission> posts = [];
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;

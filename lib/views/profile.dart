@@ -1,6 +1,5 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
-import 'package:app/models/reddit_post.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
@@ -40,7 +39,7 @@ class _Profile extends StateMVC<ProfileView> {
     client.me!.submissions.newest().listen((event) async {
       var submission = event as Submission;
       setState(() {
-        texts.add(PostWidget(post: RedditPost.fromJson(submission.data!)));
+        texts.add(PostWidget(post: submission));
       });
     });
   }
@@ -63,57 +62,75 @@ class _Profile extends StateMVC<ProfileView> {
             Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                      color: RodditColors.pink,
-                      image: DecorationImage(
-                          image: NetworkImage(client.me!.bannerImg!),
-                          fit: BoxFit.cover
-                      )
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 60),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: RodditColors.pink,
+                        image: DecorationImage(
+                            image: NetworkImage(client.me!.bannerImg!),
+                            fit: BoxFit.cover
+                        )
+                    ),
                   ),
                 ),
                 Container(
-                  transform: Matrix4.translationValues(0, 60, 0),
                   padding: const EdgeInsets.only(left: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 50,
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundImage: NetworkImage(client.me!.iconImg!),
-                        ),
+                      Expanded(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 50,
+                            child: CircleAvatar(
+                              radius: 45,
+                              backgroundImage: NetworkImage(client.me!
+                                  .iconImg!),
+                            ),
+                          ),
+                          flex: 2
                       ),
-                      Container(
-                          padding: const EdgeInsets.all(18),
-                          child: Text(client.me!.username,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32
-                              ))
-                      )
+                      Expanded(
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 6
+                              ),
+                              child: Text(client.me!.username,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              )
+                          ),
+                          flex: 8),
                     ],
                   ),
                 )
               ],
             ),
             Container(
-                padding: const EdgeInsets.only(top: 60, left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("/u/" + client.me!.displayName,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black45
-                            )
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("/u/" + client.me!.displayName,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black45
+                                )
+                            ),
+                          )
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),

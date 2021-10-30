@@ -24,38 +24,30 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final client = RedditClient();
   final List<Widget> list = [];
 
+  void listen() {
+    client.me!.subreddits.listen((sub) async {
+      setState(() {
+        list.add(ListTile(
+          leading: CircleAvatar(
+            backgroundImage: sub.iconImage?.hasAbsolutePath ?? false
+                ? NetworkImage(sub.iconImage.toString())
+                : null,
+          ),
+          title: Text("/r/" + sub.displayName),
+          onTap: () {
+            Navigator.pushNamed(context, SubredditView.routeName,
+                arguments: SubredditArguments(sub: sub));
+          },
+        ));
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    if (!client.isConnected) {
-      list.add(OutlinedButton(
-          onPressed: () {
-            client.connect(context).then((value) {
-              if (widget.callback != null) {
-                widget.callback!();
-              }
-            });
-          },
-          child: const Text("CONNECT")
-      ));
-    }
-    else {
-      client.me!.subreddits.listen((sub) async {
-        setState(() {
-          list.add(ListTile(
-            leading: CircleAvatar(
-              backgroundImage: sub.iconImage?.hasAbsolutePath ?? false
-                  ? NetworkImage(sub.iconImage.toString())
-                  : null,
-            ),
-            title: Text("/r/" + sub.displayName),
-            onTap: () {
-              Navigator.pushNamed(context, SubredditView.routeName,
-                  arguments: SubredditArguments(sub: sub));
-              },
-          ));
-        });
-      });
+    if (client.isConnected) {
+      listen();
     }
   }
 
@@ -71,7 +63,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                       : "Roddit"
               ),
               accountEmail: Text(
-                  client.isConnected ? client.me!.fullname ?? "" : ""
+                  client.isConnected ? "/u/" + client.me!.displayName : ""
               ),
               currentAccountPicture: TextButton(
                 onPressed: () {
@@ -84,9 +76,10 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   );
                 },
                 child: CircleAvatar(
-                    backgroundImage: client.isConnected ?
-                    NetworkImage(client.me!.iconImg!) : null,
-                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0)
+                  backgroundImage: client.isConnected ?
+                  NetworkImage(client.me!.iconImg!) : null,
+                  backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                  radius: 32,
                 ),
               ),
               decoration: BoxDecoration(
@@ -106,7 +99,20 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   onTap: () {
                     Navigator.pushNamed(context, HomeView.routeName);
                   },
-                ), ...list
+                ),
+                if (!client.isConnected)
+                  OutlinedButton(
+                      onPressed: () async {
+                        await client.connect();
+                        if (client.isConnected && widget.callback != null) {
+                          listen();
+                          widget.callback!();
+                        }
+                      },
+                      child: const Text("CONNECT")
+                  )
+                ,
+                ...list
               ],
               shrinkWrap: true,
               scrollDirection: Axis.vertical,

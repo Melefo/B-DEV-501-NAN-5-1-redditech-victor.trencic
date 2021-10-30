@@ -1,6 +1,8 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/subroddit.dart';
 import 'package:app/roddit_colors.dart';
+import 'package:app/views/home.dart';
+import 'package:app/views/profile.dart';
 import 'package:app/views/settings.dart';
 import 'package:app/views/subreddit.dart';
 import 'package:app/widget/info_sheet_widget.dart';
@@ -23,19 +25,28 @@ class NavigationBotBarWidget extends StatefulWidget {
 
 class _NavigationBotBarWidget extends State<NavigationBotBarWidget> {
   RedditClient client = RedditClient();
+  String get currentRoute => ModalRoute.of(context)!.settings.name!;
 
-  bool get contextIsSub =>
-      ModalRoute
-          .of(context)!
-          .settings
-          .name == SubredditView.routeName;
+  bool get contextIsSub => currentRoute == SubredditView.routeName;
+  bool get contextIsHome => currentRoute == HomeView.routeName;
+  bool get contextIsProfile => currentRoute == ProfileView.routeName;
+  bool get contextIsSettings => currentRoute == SettingsView.routeName;
 
   @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
+  Widget build(BuildContext context) => BottomAppBar(
       child: Row(
         children: [
-          NavigationFilterWidget(callback: widget.callback),
+          if (contextIsProfile)
+            IconButton(
+              icon: const Icon(MdiIcons.accountOff),
+              color: Colors.white,
+              onPressed: () {
+                client.disconnect();
+                Navigator.pushNamed(context, HomeView.routeName);
+              }
+            ),
+          if (contextIsHome || contextIsSub)
+            NavigationFilterWidget(callback: widget.callback),
           if (contextIsSub)
             IconButton(icon: const Icon(Icons.info), color: Colors.white,
             onPressed: () {
@@ -79,5 +90,4 @@ class _NavigationBotBarWidget extends State<NavigationBotBarWidget> {
       shape: const CircularNotchedRectangle(),
       color: RodditColors.pink,
     );
-  }
 }
