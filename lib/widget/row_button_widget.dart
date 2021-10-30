@@ -48,11 +48,11 @@ class _RowButtonWidget extends State<RowButtonWidget> {
                   value: widget.prefs.data[widget.field],
                   activeColor: RodditColors.pink,
                   inactiveThumbColor: RodditColors.blue,
-                  onChanged: (bool value) async {
+                  onChanged: (bool value) {
                     setState(() {
                       widget.prefs.data[widget.field] = value;
                     });
-                    await client.savePrefs(widget.prefs);
+                    client.savePrefs(widget.prefs);
                   },
                 ),
               ),

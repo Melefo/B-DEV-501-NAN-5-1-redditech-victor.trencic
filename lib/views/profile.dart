@@ -76,7 +76,6 @@ class _Profile extends StateMVC<ProfileView> {
                   ),
                 ),
                 Container(
-
                   padding: const EdgeInsets.only(left: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -99,17 +98,9 @@ class _Profile extends StateMVC<ProfileView> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 32
-                              ))
+                              )
+                          )
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 42, top: 12),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            print('Received click');
-                          },
-                          child: const Text('Click Me'),
-                        ),
-                      )
                     ],
                   ),
                 )
@@ -120,14 +111,19 @@ class _Profile extends StateMVC<ProfileView> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("/u/" + client.me!.displayName,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black45
-                            )
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("/u/" + client.me!.displayName,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black45
+                                )
+                            ),
+                          )
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),

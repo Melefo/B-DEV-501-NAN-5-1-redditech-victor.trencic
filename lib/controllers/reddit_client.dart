@@ -51,8 +51,6 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-  Reddit get test => _modelDisconnect;
-
   RedditClient._({String? token}) {
     _model = RedditData(token: token);
   }
@@ -169,7 +167,10 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-  Future<void> connect(BuildContext context) async {
+  void disconnect() async =>
+      _model = RedditData();
+
+  Future<void> connect() async {
     try {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
@@ -183,16 +184,13 @@ class RedditClient extends ControllerMVC {
           value: _model.reddit.auth.credentials.toJson()
       );
       _model.me = await _model.reddit.user.me();
-      Navigator.pop(context);
     }
     catch (_) {
-      _model = RedditData();
-      Navigator.pop(context);
-      return;
+      disconnect();
     }
   }
 
-  Future<void> savePrefs(RedditPrefs prefs) async {
+  void savePrefs(RedditPrefs prefs) async {
     var res = await http.patch(Uri.https("oauth.reddit.com", "api/v1/me/prefs"),
         headers: {
           "Authorization": "Bearer ${_model.reddit.auth.credentials
