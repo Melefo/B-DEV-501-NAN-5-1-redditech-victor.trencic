@@ -32,7 +32,7 @@ class RedditClient extends ControllerMVC {
   };
 
   late RedditData _model;
-  late Reddit _modelDisconnect;
+  late Reddit? _modelDisconnect;
 
   static Future<void> init({String? token}) async {
     var client = RedditClient(token: token);
@@ -71,6 +71,9 @@ class RedditClient extends ControllerMVC {
 
   Future<List<SubredditRef>> getSubsFromName(String query, bool over_18) async {
     var reddit = isConnected ? _model.reddit : _modelDisconnect;
+    if (reddit == null) {
+      return [];
+    }
 
     return (
         await reddit.subreddits.searchByName(query, includeNsfw: over_18)
@@ -79,6 +82,9 @@ class RedditClient extends ControllerMVC {
 
   Stream<Submission> getSubPosts(String name, PostType type, {int limits = 25}) async* {
     var reddit = isConnected ? _model.reddit : _modelDisconnect;
+    if (reddit == null) {
+      return;
+    }
     var sub = reddit.subreddit(name);
     Stream<UserContent> stream;
 
@@ -130,6 +136,9 @@ class RedditClient extends ControllerMVC {
 
   Stream<Submission> getFrontPosts(PostType type, {int limits = 25}) async* {
     var reddit = isConnected ? _model.reddit : _modelDisconnect;
+    if (reddit == null) {
+      return;
+    }
     Stream<UserContent> stream;
 
     switch (type) {
