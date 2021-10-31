@@ -27,6 +27,7 @@ class _Home extends StateMVC<HomeView> {
   final RedditClient client = RedditClient();
   final ScrollController _controller = ScrollController();
   final List<Submission> posts = [];
+
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;

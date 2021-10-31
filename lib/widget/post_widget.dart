@@ -66,7 +66,8 @@ class PostWidget extends StatelessWidget {
                       fit: BoxFit.cover
                   )
                 ],
-              )),
+              )
+          ),
         ],
       ),
     );
