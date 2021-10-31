@@ -22,9 +22,17 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   final padding = const EdgeInsets.symmetric(horizontal: 20);
   final client = RedditClient();
   final List<Widget> list = [];
+  late bool _disposed = false;
 
   String get currentRoute =>
       ModalRoute
@@ -34,6 +42,9 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
 
   void listen() {
     client.me!.subreddits().listen((sub) async {
+      if (_disposed) {
+        return;
+      }
       setState(() {
         list.add(ListTile(
           leading: CircleAvatar(

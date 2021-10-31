@@ -1,5 +1,6 @@
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
+import 'package:app/models/reddit_prefs.dart';
 import 'package:app/roddit_colors.dart';
 import 'package:app/widget/comment_widget.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
@@ -60,13 +61,13 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
     client.me!.upvoted().listen((event) async {
       var submission = event as Submission;
       setState(() {
-          upvotes.add(PostWidget(post: submission));
+        upvotes.add(PostWidget(post: submission));
       });
     });
     client.me!.downvoted().listen((event) async {
       var submission = event as Submission;
       setState(() {
-          downvotes.add(PostWidget(post: submission));
+        downvotes.add(PostWidget(post: submission));
       });
     });
   }
@@ -87,8 +88,9 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
               return [
                 SliverAppBar(
                     pinned: true,
-                    expandedHeight: 427,
+                    expandedHeight: 4027,
                     backgroundColor: Colors.white,
+                    automaticallyImplyLeading: false,
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
                       background: Column(
@@ -158,7 +160,7 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
                                     children: [
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
+                                            .start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -169,6 +171,45 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
                                                     color: Colors.black45
                                                 )
                                             ),
+                                          ),
+                                          FutureBuilder(
+                                            future: client.me!.prefs,
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<
+                                                    RedditPrefs> snapshot) {
+                                              return Row(
+                                                children: [
+                                                  Container(
+                                                    height: 12,
+                                                    width: 12,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: snapshot
+                                                            .hasData &&
+                                                            snapshot.data!
+                                                                .showPresence
+                                                            ? Colors.lightGreen
+                                                            : Colors.redAccent
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .only(left: 8.0),
+                                                    child: Text(
+                                                        snapshot.hasData &&
+                                                            snapshot.data!
+                                                                .showPresence
+                                                            ? "Online"
+                                                            : "Offline",
+                                                        style: const TextStyle(
+                                                            color: Colors
+                                                                .black12
+                                                        )
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            },
                                           )
                                         ],
                                       ),
@@ -177,7 +218,7 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
                                             top: 8.0),
                                         child: Text(client.me!.description ??
                                             ""),
-                                      ),
+                                      )
                                     ]
                                 )
                             ),
