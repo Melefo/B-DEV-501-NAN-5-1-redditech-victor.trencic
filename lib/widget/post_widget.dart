@@ -1,12 +1,12 @@
-import 'package:app/models/reddit_post.dart';
+import 'package:draw/draw.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../roddit_colors.dart';
 
 class PostWidget extends StatelessWidget {
-  RedditPost post;
+  final Submission post;
 
-  PostWidget({Key? key, required this.post}) : super(key: key);
+  const PostWidget({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class PostWidget extends StatelessWidget {
                           ),
                           const TextSpan(text: " in "),
                           TextSpan(
-                              text: post.subreddit,
+                              text: post.subreddit.displayName,
                               style: TextStyle(
                                   color: RodditColors.blue,
                                   fontWeight: FontWeight.bold)
@@ -46,7 +46,7 @@ class PostWidget extends StatelessWidget {
                         style: const TextStyle(fontSize: 14)
                     ),
                   ),
-                  Text(post.description,
+                  Text(post.title,
                     style: const TextStyle(color: Colors.black),
                   ),
                 ],
@@ -59,14 +59,15 @@ class PostWidget extends StatelessWidget {
                   Text(post.upvotes.toString(),
                     style: const TextStyle(color: Colors.black45),
                   ),
-                  if (post.thumbnail != null) Image.network(
-                      post.thumbnail!,
+                  if (post.thumbnail.hasAbsolutePath == true) Image.network(
+                      post.thumbnail.toString(),
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover
                   )
                 ],
-              )),
+              )
+          ),
         ],
       ),
     );

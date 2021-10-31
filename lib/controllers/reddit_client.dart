@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:app/main.dart';
 import 'package:app/models/reddit_data.dart';
 import 'package:app/models/reddit_prefs.dart';
-import 'package:app/models/reddit_post.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
 
 enum PostType {
   newest,
@@ -16,7 +17,8 @@ enum PostType {
 }
 
 class RedditClient extends ControllerMVC {
-  factory RedditClient() => _this ??= RedditClient._();
+  factory RedditClient({String? token}) =>
+      _this ??= RedditClient._(token: token);
 
   static RedditClient? _this;
   final Map<PostType, String> _last = {
@@ -27,13 +29,30 @@ class RedditClient extends ControllerMVC {
     PostType.controversial: ""
   };
   final Map<String, Map<PostType, String>> _subLast = {
-
   };
 
   late RedditData _model;
+  late Reddit _modelDisconnect;
 
-  RedditClient._() {
-    _model = RedditData();
+  static Future<void> init({String? token}) async {
+    var client = RedditClient(token: token);
+    String? uuid = await Roddit.storage.read(key: RedditData.uuidKey);
+    if (uuid == null) {
+      uuid = const Uuid().v4();
+      await Roddit.storage.write(key: RedditData.uuidKey, value: uuid);
+    }
+    client._modelDisconnect = await Reddit.createUntrustedReadOnlyInstance(
+        clientId: const String.fromEnvironment("REDDIT_CLIENT_ID"),
+        deviceId: uuid,
+        userAgent: RedditData.userAgent
+    );
+    if (token != null) {
+      client._model.me = await client._model.reddit.user.me();
+    }
+  }
+
+  RedditClient._({String? token}) {
+    _model = RedditData(token: token);
   }
 
   bool get isConnected => _model.isConnected;
@@ -51,13 +70,16 @@ class RedditClient extends ControllerMVC {
   }
 
   Future<List<SubredditRef>> getSubsFromName(String query, bool over_18) async {
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
+
     return (
-        await _model.reddit.subreddits.searchByName(query, includeNsfw: over_18)
+        await reddit.subreddits.searchByName(query, includeNsfw: over_18)
     );
   }
 
-  Stream<RedditPost> getSubPosts(String name, PostType type, {int limits = 25}) async* {
-    var sub = _model.reddit.subreddit(name);
+  Stream<Submission> getSubPosts(String name, PostType type, {int limits = 25}) async* {
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
+    var sub = reddit.subreddit(name);
     Stream<UserContent> stream;
 
     switch (type) {
@@ -98,7 +120,7 @@ class RedditClient extends ControllerMVC {
     await for (final event in stream) {
       var submission = event as Submission;
 
-      yield RedditPost.fromJson(submission.data as Map<String, dynamic>);
+      yield submission;
       if (!_last.containsKey(name)) {
         _subLast[name] = <PostType, String>{};
       }
@@ -106,69 +128,80 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-    Stream<RedditPost> getFrontPosts(PostType type, {int limits = 25}) async* {
+  Stream<Submission> getFrontPosts(PostType type, {int limits = 25}) async* {
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
     Stream<UserContent> stream;
 
     switch (type) {
       case PostType.controversial:
         {
-          stream = _model.reddit.front.controversial(limit: limits, after: _last[type]);
+          stream = reddit.front.controversial(
+              limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.hot:
         {
-          stream = _model.reddit.front.hot(limit: limits, after: _last[type]);
+          stream = reddit.front.hot(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.newest:
         {
-          stream = _model.reddit.front.newest(limit: limits, after: _last[type]);
+          stream =
+              reddit.front.newest(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.rising:
         {
-          stream = _model.reddit.front.rising(limit: limits, after: _last[type]);
+          stream =
+              reddit.front.rising(limit: limits, after: _last[type]);
         }
         break;
 
       case PostType.top:
         {
-          stream = _model.reddit.front.top(limit: limits, after: _last[type]);
+          stream = reddit.front.top(limit: limits, after: _last[type]);
         }
         break;
     }
     await for (final event in stream) {
       var submission = event as Submission;
 
-      yield RedditPost.fromJson(submission.data as Map<String, dynamic>);
+      yield submission;
       _last[type] = "t3_" + submission.id!;
     }
   }
 
-    Future<void> connect(BuildContext context) async {
+  void disconnect() async {
+    await Roddit.storage.delete(
+        key: RedditData.tokenKey
+    );
+    _model = RedditData();
+  }
+
+  Future<void> connect() async {
     try {
       var auth = await FlutterWebAuth.authenticate(
           url: _model.authUrl.toString(),
-          callbackUrlScheme: _model.userAgent.toLowerCase());
+          callbackUrlScheme: RedditData.userAgent.toLowerCase());
       String? code = Uri
           .parse(auth)
           .queryParameters["code"];
       await _model.reddit.auth.authorize(code.toString());
+      await Roddit.storage.write(
+          key: RedditData.tokenKey,
+          value: _model.reddit.auth.credentials.toJson()
+      );
       _model.me = await _model.reddit.user.me();
-      Navigator.pop(context);
     }
     catch (_) {
-      _model = RedditData();
-      Navigator.pop(context);
-      return;
+      disconnect();
     }
-
   }
 
-  Future<void> savePrefs(RedditPrefs prefs) async {
+  void savePrefs(RedditPrefs prefs) async {
     var res = await http.patch(Uri.https("oauth.reddit.com", "api/v1/me/prefs"),
         headers: {
           "Authorization": "Bearer ${_model.reddit.auth.credentials

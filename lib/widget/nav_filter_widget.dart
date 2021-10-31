@@ -1,5 +1,4 @@
 import 'package:app/controllers/reddit_client.dart';
-import 'package:app/controllers/reddit_offline.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +68,9 @@ class _NavigationFilterWidget extends State<NavigationFilterWidget> {
             ],
             onSelected: (PostType newValue) {
               setState(() {
+                if (_value == newValue) {
+                  return;
+                }
                 _value = newValue;
                 if (widget.callback != null) {
                   widget.callback!(newValue);

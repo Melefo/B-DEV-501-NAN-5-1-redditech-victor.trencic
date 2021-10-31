@@ -24,16 +24,15 @@ class SettingsView extends StatefulWidget {
 
 //state
 class _Settings extends StateMVC<SettingsView> {
-  @override
   final RedditClient client = RedditClient();
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        drawer: NavigationDrawerWidget(),
+        drawer: const NavigationDrawerWidget(),
         appBar: NavigationTopBarWidget(title: widget.title),
-        bottomNavigationBar: NavigationBotBarWidget(),
-        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
+        bottomNavigationBar: const NavigationBotBarWidget(),
+        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushReplacementNamed(context, HomeView.routeName)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: const SettingsButtonWidget()
 

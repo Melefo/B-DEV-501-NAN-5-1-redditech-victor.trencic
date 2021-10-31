@@ -5,7 +5,6 @@ import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
 import 'package:app/widget/nav_fab_button_widget.dart';
 import 'package:app/widget/nav_top_bar_widget.dart';
-import 'package:app/models/reddit_post.dart';
 import 'package:app/widget/post_widget.dart';
 import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
@@ -14,11 +13,9 @@ import 'package:flutter/material.dart';
 
 //view
 class SubredditView extends StatefulWidget {
-  Subreddit? sub;
-
   static String routeName = "/sub";
 
-  SubredditView({Key? key}) : super(key: key);
+  const SubredditView({Key? key}) : super(key: key);
 
   @override
   StateMVC<SubredditView> createState() => _Subreddit();
@@ -29,29 +26,30 @@ class _Subreddit extends StateMVC<SubredditView> {
   bool first = false;
   final RedditClient client = RedditClient();
   final ScrollController _controller = ScrollController();
-  final List<RedditPost> posts = [];
+  final List<Submission> posts = [];
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
+  Subreddit? sub;
 
   void emptyPosts() {
-    client.resetSubPosts(widget.sub!.displayName, currentType);
-    setState(() => posts.clear());
+    client.resetSubPosts(sub!.displayName, currentType);
+    setState(() {
+      posts.clear();
+    });
     listen();
   }
 
   void listen() {
     _end = false;
     _stream.cancel();
-    if (client.isConnected && widget.sub != null) {
-      _stream = client.getSubPosts(widget.sub!.displayName, currentType).listen((event) {
+      _stream = client.getSubPosts(sub!.displayName, currentType).listen((event) {
         setState(() {
           posts.add(event);
         });
       }, onDone: () {
         _end = true;
       });
-    }
   }
 
   @override
@@ -74,16 +72,16 @@ class _Subreddit extends StateMVC<SubredditView> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as SubredditArguments;
-    widget.sub = args.sub;
+    sub = args.sub;
     if (!first) {
       emptyPosts();
       first = true;
     }
 
     return Scaffold(
-          drawer: NavigationDrawerWidget(callback: emptyPosts),
-          appBar: NavigationTopBarWidget(title: widget.sub!.title),
-          bottomNavigationBar: NavigationBotBarWidget(callback: filter),
+          drawer: NavigationDrawerWidget(callback: emptyPosts, sub: sub!.fullname),
+          appBar: NavigationTopBarWidget(title: sub!.title),
+          bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: sub),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
               onPressed: emptyPosts
