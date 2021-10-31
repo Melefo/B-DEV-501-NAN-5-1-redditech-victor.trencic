@@ -18,7 +18,11 @@ extension Rodditor on Redditor {
 
   String get username => _subreddit?.title ?? displayName;
 
-  Stream<Subreddit> get subreddits => reddit.user.subreddits();
+  Stream<Subreddit> subreddits([String after = ""]) =>
+      reddit.user.subreddits(
+          params: {
+            "after": after
+          });
 
   Future<RedditPrefs> get prefs async =>
       RedditPrefs(await reddit.get("api/v1/me/prefs", objectify: false));

@@ -33,7 +33,7 @@ class _Settings extends StateMVC<SettingsView> {
         drawer: const NavigationDrawerWidget(),
         appBar: NavigationTopBarWidget(title: widget.title),
         bottomNavigationBar: const NavigationBotBarWidget(),
-        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushNamed(context, HomeView.routeName)),
+        floatingActionButton: NavigationFabButtonWidget(buttonIcon: Icons.home, onPressed: () => Navigator.pushReplacementNamed(context, HomeView.routeName)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: const SettingsButtonWidget()
 

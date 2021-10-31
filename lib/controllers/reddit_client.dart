@@ -167,8 +167,12 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-  void disconnect() async =>
-      _model = RedditData();
+  void disconnect() async {
+    await Roddit.storage.delete(
+        key: RedditData.tokenKey
+    );
+    _model = RedditData();
+  }
 
   Future<void> connect() async {
     try {

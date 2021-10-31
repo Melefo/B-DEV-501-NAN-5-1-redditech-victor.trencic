@@ -81,7 +81,7 @@ class _Subreddit extends StateMVC<SubredditView> {
     }
 
     return Scaffold(
-          drawer: NavigationDrawerWidget(callback: emptyPosts),
+          drawer: NavigationDrawerWidget(callback: emptyPosts, sub: sub!.fullname),
           appBar: NavigationTopBarWidget(title: sub!.title),
           bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: sub),
           floatingActionButton: NavigationFabButtonWidget(
