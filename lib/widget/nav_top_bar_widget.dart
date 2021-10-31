@@ -100,7 +100,7 @@ class ExSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    return buildSuggestions(context);
   }
 
 
