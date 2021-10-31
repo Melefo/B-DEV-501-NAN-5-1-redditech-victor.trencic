@@ -104,11 +104,11 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
                                     height: 150,
                                     decoration: BoxDecoration(
                                         color: RodditColors.pink,
-                                        image: DecorationImage(
+                                        image: client.me!.bannerImg != null ? DecorationImage(
                                             image: NetworkImage(
                                                 client.me!.bannerImg!),
                                             fit: BoxFit.cover
-                                        )
+                                        ) : null
                                     ),
                                   ),
                                 ),

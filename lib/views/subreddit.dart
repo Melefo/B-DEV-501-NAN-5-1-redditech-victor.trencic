@@ -43,14 +43,15 @@ class _Subreddit extends StateMVC<SubredditView> {
   void listen() {
     _end = false;
     _stream.cancel();
-    if (client.isConnected && sub != null) {
-      _stream = client.getSubPosts(sub!.displayName, currentType).listen((event) {
-        setState(() {
-          posts.add(event);
-        });
-      }, onDone: () {
-        _end = true;
-      });
+    if (sub != null) {
+      _stream =
+          client.getSubPosts(sub!.displayName, currentType).listen((event) {
+            setState(() {
+              posts.add(event);
+            });
+          }, onDone: () {
+            _end = true;
+          });
     }
   }
 

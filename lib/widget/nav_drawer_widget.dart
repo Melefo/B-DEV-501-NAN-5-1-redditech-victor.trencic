@@ -123,7 +123,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 ),
               ),
               decoration: BoxDecoration(
-                  image: client.isConnected ? DecorationImage(
+                  image: client.isConnected && client.me!.bannerImg != null ? DecorationImage(
                       image: NetworkImage(client.me!.bannerImg!),
                       fit: BoxFit.cover) : null,
                   color: RodditColors.pink

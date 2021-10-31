@@ -69,8 +69,15 @@ class RedditClient extends ControllerMVC {
     }
   }
 
-  Stream<Submission> getSubPosts(String name, PostType type,
-      {int limits = 25}) async* {
+  Future<List<SubredditRef>> getSubsFromName(String query, bool over_18) async {
+    var reddit = isConnected ? _model.reddit : _modelDisconnect;
+
+    return (
+        await reddit.subreddits.searchByName(query, includeNsfw: over_18)
+    );
+  }
+
+  Stream<Submission> getSubPosts(String name, PostType type, {int limits = 25}) async* {
     var reddit = isConnected ? _model.reddit : _modelDisconnect;
     var sub = reddit.subreddit(name);
     Stream<UserContent> stream;
