@@ -114,13 +114,30 @@ class ExSearch extends SearchDelegate<String> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  final suggestion = snapshot.data![index].displayName;
+                  final ref = snapshot.data![index];
+                  final suggestion = ref.displayName;
 
-                  return ListTile(
-                    onTap: () async {
-                      Navigator.pushNamed(context,SubredditView.routeName, arguments: SubredditArguments(sub: await snapshot.data![index].populate()));
+                  return FutureBuilder(
+                    future: ref.populate(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Subreddit> snapshot) {
+                      return ListTile(
+                        onTap: () async {
+                          Navigator.pushNamed(context, SubredditView.routeName,
+                              arguments: SubredditArguments(
+                                  sub: await ref.populate()));
+                        },
+                        title: Text("/r/" + suggestion),
+                        leading: snapshot.hasData ?
+                        CircleAvatar(
+                          backgroundImage: snapshot.data!.iconImage
+                              ?.hasAbsolutePath ?? false
+                              ? NetworkImage(snapshot.data!.iconImage
+                              .toString())
+                              : null,
+                        ) : null,
+                      );
                     },
-                    title: Text("/r/" + suggestion),
                   );
                 },
               );

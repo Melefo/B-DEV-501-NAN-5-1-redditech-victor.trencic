@@ -1,7 +1,7 @@
 import 'package:draw/draw.dart';
 
 extension Subroddit on Subreddit {
-  bool get isSubscribed => data!["user_is_subscriber"];
+  bool get isSubscribed => data?["user_is_subscriber"] ?? false;
   set isSubscribed(bool value) {
     data!["user_is_subscriber"] = value;
   }
