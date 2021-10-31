@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the savePrefs method from the RedditClient class, for the Dart programming language.">
+  <title>savePrefs method - RedditClient class - reddit_client library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">app</a></li>
+    <li><a href="../../controllers_reddit_client/controllers_reddit_client-library.html">reddit_client</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient-class.html">RedditClient</a></li>
+    <li class="self-crumb">savePrefs method</li>
+  </ol>
+  <div class="self-name">savePrefs</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">savePrefs</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">void</span>
+<span class="name ">savePrefs</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="savePrefs-param-prefs"><span class="type-annotation"><a href="../../models_reddit_prefs/RedditPrefs-class.html">RedditPrefs</a></span> <span class="parameter-name">prefs</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void savePrefs(RedditPrefs prefs) async {
+  var res = await http.patch(Uri.https(&quot;oauth.reddit.com&quot;, &quot;api&#47;v1&#47;me&#47;prefs&quot;),
+      headers: {
+        &quot;Authorization&quot;: &quot;Bearer ${_model.reddit.auth.credentials
+            .accessToken}&quot;,
+        &quot;Content-Type&quot;: &quot;application&#47;json&quot;
+      }, body: json.encode(prefs.data));
+  if (res.statusCode != 200) {
+    throw DRAWAuthenticationError(&quot;Can&#39;t save user prefs&quot;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">app</a></li>
+  <li><a href="../../controllers_reddit_client/controllers_reddit_client-library.html">reddit_client</a></li>
+  <li><a href="../../controllers_reddit_client/RedditClient-class.html">RedditClient</a></li>
+  <li class="self-crumb">savePrefs method</li>
+</ol>
+
+
+    <h5>RedditClient class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../controllers_reddit_client/RedditClient-class.html#constructors">Constructors</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/RedditClient.html">RedditClient</a></li>
+
+
+    <li class="section-title">
+      <a href="../../controllers_reddit_client/RedditClient-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/errorMsg.html">errorMsg</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/hasError.html">hasError</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/inError.html">inError</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/isConnected.html">isConnected</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/keyId.html">keyId</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/me.html">me</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/state.html">state</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/stateMVC.html">stateMVC</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/states.html">states</a></li>
+
+    <li class="section-title"><a href="../../controllers_reddit_client/RedditClient-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/addState.html">addState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/afterListener.html">afterListener</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/beforeListener.html">beforeListener</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/connect.html">connect</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/deactivate.html">deactivate</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAccessibilityFeatures.html">didChangeAccessibilityFeatures</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAppLifecycleState.html">didChangeAppLifecycleState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeDependencies.html">didChangeDependencies</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeLocale.html">didChangeLocale</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeMetrics.html">didChangeMetrics</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangePlatformBrightness.html">didChangePlatformBrightness</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeTextScaleFactor.html">didChangeTextScaleFactor</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didHaveMemoryPressure.html">didHaveMemoryPressure</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPopRoute.html">didPopRoute</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPushRoute.html">didPushRoute</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didUpdateWidget.html">didUpdateWidget</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/disconnect.html">disconnect</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/dispose.html">dispose</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/getError.html">getError</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/getFrontPosts.html">getFrontPosts</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/getSubPosts.html">getSubPosts</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/getSubsFromName.html">getSubsFromName</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initAsync.html">initAsync</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initState.html">initState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/listControllers.html">listControllers</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/notifyListeners.html">notifyListeners</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/ofState.html">ofState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/onAsyncError.html">onAsyncError</a></li>
+    <li class="inherited"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/pushState.html">pushState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/reassemble.html">reassemble</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/rebuild.html">rebuild</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/refresh.html">refresh</a></li>
+    <li class="inherited"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/removeState.html">removeState</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/resetPosts.html">resetPosts</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/resetSubPosts.html">resetSubPosts</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/savePrefs.html">savePrefs</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/setState.html">setState</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../controllers_reddit_client/RedditClient-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+    <li class="section-title"><a href="../../controllers_reddit_client/RedditClient-class.html#static-methods">Static methods</a></li>
+    <li><a href="../../controllers_reddit_client/RedditClient/init.html">init</a></li>
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

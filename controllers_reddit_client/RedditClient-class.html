@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the RedditClient class from the reddit_client library, for the Dart programming language.">
+  <title>RedditClient class - reddit_client library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">app</a></li>
+    <li><a href="../controllers_reddit_client/controllers_reddit_client-library.html">reddit_client</a></li>
+    <li class="self-crumb">RedditClient class</li>
+  </ol>
+  <div class="self-name">RedditClient</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-class">RedditClient</span> class 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+
+
+    <section>
+      <dl class="dl-horizontal">
+        <dt>Inheritance</dt>
+        <dd><ul class="gt-separated dark clazz-relationships">
+          <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+          <li><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter-class.html">StateSetter</a></li>
+          <li><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC-class.html">ControllerMVC</a></li>
+          <li><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/ControllerMVC-class.html">ControllerMVC</a></li>
+          <li>RedditClient</li>
+        </ul></dd>
+
+
+
+
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="constructors">
+      <h2>Constructors</h2>
+
+      <dl class="constructor-summary-list">
+        <dt id="RedditClient" class="callable">
+          <span class="name"><a href="../controllers_reddit_client/RedditClient/RedditClient.html">RedditClient</a></span><span class="signature">(<span class="parameter" id="-param-token">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">token</span>}</span>)</span>
+        </dt>
+        <dd>
+           
+          <div class="constructor-modifier features">factory</div>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="errorMsg" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/errorMsg.html">errorMsg</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+  Simply display the error. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="hasError" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/hasError.html">hasError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="inError" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/inError.html">inError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  Determine if app is 'in error.' 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="isConnected" class="property">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/isConnected.html">isConnected</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="keyId" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/keyId.html">keyId</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="me" class="property">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/me.html">me</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/draw/1.0.2/draw/Redditor-class.html">Redditor</a>?</span> 
+
+</dt>
+<dd>
+   
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="state" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/state.html">state</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span>?</span> 
+
+</dt>
+<dd class="inherited">
+  The current State object. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="stateMVC" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/stateMVC.html">stateMVC</a></span>
+  <span class="signature">&#8594; <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span>?</span> 
+
+</dt>
+<dd class="inherited">
+  The current StateMVC object. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="states" class="property inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/states.html">states</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span></span>&gt;</span></span> 
+
+</dt>
+<dd class="inherited">
+  Return a 'copy' of the Set of State objects. 
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="addState" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/addState.html">addState</a></span><span class="signature">(<wbr><span class="parameter" id="addState-param-state"><span class="type-annotation"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span>?</span> <span class="parameter-name">state</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Associate this Controller to the specified State object
+to use that State object's functions and features.
+Returns that State object's unique identifier. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="afterListener" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/afterListener.html">afterListener</a></span><span class="signature">(<wbr><span class="parameter" id="afterListener-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener-mixin.html">StateListener</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Retrieve the 'after' listener by its unique key. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="beforeListener" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/beforeListener.html">beforeListener</a></span><span class="signature">(<wbr><span class="parameter" id="beforeListener-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">key</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener-mixin.html">StateListener</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Retrieve the 'before' listener by its unique key. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="connect" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/connect.html">connect</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="deactivate" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/deactivate.html">deactivate</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The framework calls this method whenever it removes this <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a> object
+from the tree. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeAccessibilityFeatures" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAccessibilityFeatures.html">didChangeAccessibilityFeatures</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the system changes the set of active accessibility features. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeAppLifecycleState" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAppLifecycleState.html">didChangeAppLifecycleState</a></span><span class="signature">(<wbr><span class="parameter" id="didChangeAppLifecycleState-param-state"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/AppLifecycleState.html">AppLifecycleState</a></span> <span class="parameter-name">state</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the system puts the app in the background or returns the app to the foreground. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeDependencies" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeDependencies.html">didChangeDependencies</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when a dependency of this <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a> object changes. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeLocale" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeLocale.html">didChangeLocale</a></span><span class="signature">(<wbr><span class="parameter" id="didChangeLocale-param-locale"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Locale-class.html">Locale</a></span> <span class="parameter-name">locale</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the system tells the app that the user's locale has changed. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeMetrics" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeMetrics.html">didChangeMetrics</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the application's dimensions change. For example,
+when a phone is rotated. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangePlatformBrightness" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangePlatformBrightness.html">didChangePlatformBrightness</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+   
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didChangeTextScaleFactor" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeTextScaleFactor.html">didChangeTextScaleFactor</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the platform's text scale factor changes. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didHaveMemoryPressure" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didHaveMemoryPressure.html">didHaveMemoryPressure</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the system is running low on memory. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didPopRoute" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPopRoute.html">didPopRoute</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the system tells the app to pop the current route.
+For example, on Android, this is called when the user presses
+the back button. <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPopRoute.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didPushRoute" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPushRoute.html">didPushRoute</a></span><span class="signature">(<wbr><span class="parameter" id="didPushRoute-param-route"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">route</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called when the host tells the app to push a new route onto the
+navigator. <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPushRoute.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="didUpdateWidget" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didUpdateWidget.html">didUpdateWidget</a></span><span class="signature">(<wbr><span class="parameter" id="didUpdateWidget-param-oldWidget"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span> <span class="parameter-name">oldWidget</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Override this method to respond when the <code>widget</code> changes (e.g., to start
+implicit animations). 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="disconnect" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/disconnect.html">disconnect</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="dispose" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/dispose.html">dispose</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The framework calls this method when this <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a> object will never
+build again.
+Note: THERE IS NO GUARANTEE THIS METHOD WILL RUN in the Framework. 
+  <div class="features">@<a href="https://pub.dev/documentation/meta/1.7.0/meta/mustCallSuper-constant.html">mustCallSuper</a>, inherited</div>
+
+</dd>
+
+        <dt id="getError" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/getError.html">getError</a></span><span class="signature">(<wbr><span class="parameter" id="getError-param-error">[<span class="type-annotation">dynamic</span> <span class="parameter-name">error</span>]</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a>?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Return the 'last' error if any. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="getFrontPosts" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/getFrontPosts.html">getFrontPosts</a></span><span class="signature">(<wbr><span class="parameter" id="getFrontPosts-param-type"><span class="type-annotation"><a href="../controllers_reddit_client/PostType.html">PostType</a></span> <span class="parameter-name">type</span>, </span><span class="parameter" id="getFrontPosts-param-limits">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">limits</span> = <span class="default-value">25</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/draw/1.0.2/draw/Submission-class.html">Submission</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="getSubPosts" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/getSubPosts.html">getSubPosts</a></span><span class="signature">(<wbr><span class="parameter" id="getSubPosts-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="getSubPosts-param-type"><span class="type-annotation"><a href="../controllers_reddit_client/PostType.html">PostType</a></span> <span class="parameter-name">type</span>, </span><span class="parameter" id="getSubPosts-param-limits">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">limits</span> = <span class="default-value">25</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/draw/1.0.2/draw/Submission-class.html">Submission</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="getSubsFromName" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/getSubsFromName.html">getSubsFromName</a></span><span class="signature">(<wbr><span class="parameter" id="getSubsFromName-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span>, </span><span class="parameter" id="getSubsFromName-param-over_18"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">over_18</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/draw/1.0.2/draw/SubredditRef-class.html">SubredditRef</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="initAsync" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initAsync.html">initAsync</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Initialize any 'time-consuming' operations at the beginning.
+Initialize asynchronous items essential to the Mobile Applications.
+Typically called within a FutureBuilder() widget. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="initState" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initState.html">initState</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The framework will call this method exactly once.
+Only when the <a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a> object is first created. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="listControllers" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/listControllers.html">listControllers</a></span><span class="signature">(<wbr><span class="parameter" id="listControllers-param-keys"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">keys</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC-class.html">ControllerMVC</a>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Return a List of Controllers specified by key id. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="notifyListeners" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/notifyListeners.html">notifyListeners</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  For those accustom to the 'Provider' approach. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="ofState" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/ofState.html">ofState</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span></span>&gt;</span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; T?</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Retrieve the State object by type
+Returns null if not found 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="onAsyncError" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/onAsyncError.html">onAsyncError</a></span><span class="signature">(<wbr><span class="parameter" id="onAsyncError-param-details"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/FlutterErrorDetails-class.html">FlutterErrorDetails</a></span> <span class="parameter-name">details</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Supply an 'error handler' routine if something goes wrong
+in the corresponding initAsync() routine.
+Returns true if the error was properly handled. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="pushState" class="callable inherited">
+  <span class="name deprecated"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/pushState.html">pushState</a></span><span class="signature">(<wbr><span class="parameter" id="pushState-param-state"><span class="type-annotation"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span>?</span> <span class="parameter-name">state</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Push the StateMVC object to a Set of such objects
+Internal use only: This connects the Controller to this View! 
+  <div class="features">@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Too intrusive method to manages State objects.&#39;), inherited</div>
+
+</dd>
+
+        <dt id="reassemble" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/reassemble.html">reassemble</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Called whenever the application is reassembled during debugging, for
+example during hot reload. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="rebuild" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/rebuild.html">rebuild</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Allow for a more accurate description 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="refresh" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/refresh.html">refresh</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Allows external classes to 'refresh' or 'rebuild' the widget tree. 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="removeState" class="callable inherited">
+  <span class="name deprecated"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/removeState.html">removeState</a></span><span class="signature">(<wbr><span class="parameter" id="removeState-param-state"><span class="type-annotation"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateMVC-class.html">StateMVC</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></span>&gt;</span>?</span> <span class="parameter-name">state</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Remove the specified StateMVC object to a Set of such objects
+Internal use only: This disconnects the Controller to this View! 
+  <div class="features">@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&quot;Too unpredictable! Can disrupt the &#39;state&#39; of things.&quot;), inherited</div>
+
+</dd>
+
+        <dt id="resetPosts" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/resetPosts.html">resetPosts</a></span><span class="signature">(<wbr><span class="parameter" id="resetPosts-param-type"><span class="type-annotation"><a href="../controllers_reddit_client/PostType.html">PostType</a></span> <span class="parameter-name">type</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="resetSubPosts" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/resetSubPosts.html">resetSubPosts</a></span><span class="signature">(<wbr><span class="parameter" id="resetSubPosts-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="resetSubPosts-param-type"><span class="type-annotation"><a href="../controllers_reddit_client/PostType.html">PostType</a></span> <span class="parameter-name">type</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="savePrefs" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/savePrefs.html">savePrefs</a></span><span class="signature">(<wbr><span class="parameter" id="savePrefs-param-prefs"><span class="type-annotation"><a href="../models_reddit_prefs/RedditPrefs-class.html">RedditPrefs</a></span> <span class="parameter-name">prefs</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+        <dt id="setState" class="callable inherited">
+  <span class="name"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/setState.html">setState</a></span><span class="signature">(<wbr><span class="parameter" id="setState-param-fn"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">fn</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Provide the setState() function to external actors 
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor inherited" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator. <a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">[...]</a>
+  <div class="features">inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+
+    <section class="summary offset-anchor" id="static-methods">
+      <h2>Static Methods</h2>
+      <dl class="callables">
+        <dt id="init" class="callable">
+  <span class="name"><a href="../controllers_reddit_client/RedditClient/init.html">init</a></span><span class="signature">(<wbr><span class="parameter" id="init-param-token">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">token</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  
+
+</dd>
+
+      </dl>
+    </section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">app</a></li>
+  <li><a href="../controllers_reddit_client/controllers_reddit_client-library.html">reddit_client</a></li>
+  <li class="self-crumb">RedditClient class</li>
+</ol>
+
+
+    <h5>reddit_client library</h5>
+    <ol>
+  <li class="section-title"><a href="../controllers_reddit_client/controllers_reddit_client-library.html#classes">Classes</a></li>
+  <li><a href="../controllers_reddit_client/RedditClient-class.html">RedditClient</a></li>
+
+
+
+
+
+
+  <li class="section-title"><a href="../controllers_reddit_client/controllers_reddit_client-library.html#enums">Enums</a></li>
+  <li><a href="../controllers_reddit_client/PostType.html">PostType</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+    <li class="section-title"><a href="../controllers_reddit_client/RedditClient-class.html#constructors">Constructors</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/RedditClient.html">RedditClient</a></li>
+
+
+    <li class="section-title">
+      <a href="../controllers_reddit_client/RedditClient-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/errorMsg.html">errorMsg</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/hasError.html">hasError</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/inError.html">inError</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/isConnected.html">isConnected</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/keyId.html">keyId</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/me.html">me</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/state.html">state</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/stateMVC.html">stateMVC</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/states.html">states</a></li>
+
+    <li class="section-title"><a href="../controllers_reddit_client/RedditClient-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/addState.html">addState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/afterListener.html">afterListener</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/beforeListener.html">beforeListener</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/connect.html">connect</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/deactivate.html">deactivate</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAccessibilityFeatures.html">didChangeAccessibilityFeatures</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeAppLifecycleState.html">didChangeAppLifecycleState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeDependencies.html">didChangeDependencies</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeLocale.html">didChangeLocale</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeMetrics.html">didChangeMetrics</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangePlatformBrightness.html">didChangePlatformBrightness</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didChangeTextScaleFactor.html">didChangeTextScaleFactor</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didHaveMemoryPressure.html">didHaveMemoryPressure</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPopRoute.html">didPopRoute</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didPushRoute.html">didPushRoute</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/didUpdateWidget.html">didUpdateWidget</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/disconnect.html">disconnect</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/dispose.html">dispose</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_application/7.11.0/controller/HandleError/getError.html">getError</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/getFrontPosts.html">getFrontPosts</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/getSubPosts.html">getSubPosts</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/getSubsFromName.html">getSubsFromName</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initAsync.html">initAsync</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/initState.html">initState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/ControllerMVC/listControllers.html">listControllers</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/notifyListeners.html">notifyListeners</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/ofState.html">ofState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/onAsyncError.html">onAsyncError</a></li>
+    <li class="inherited"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/pushState.html">pushState</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateListener/reassemble.html">reassemble</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/rebuild.html">rebuild</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/refresh.html">refresh</a></li>
+    <li class="inherited"><a class="deprecated" href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSets/removeState.html">removeState</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/resetPosts.html">resetPosts</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/resetSubPosts.html">resetSubPosts</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/savePrefs.html">savePrefs</a></li>
+    <li class="inherited"><a href="https://pub.dev/documentation/mvc_pattern/7.4.0/mvc_pattern/StateSetter/setState.html">setState</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../controllers_reddit_client/RedditClient-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+    <li class="section-title"><a href="../controllers_reddit_client/RedditClient-class.html#static-methods">Static methods</a></li>
+    <li><a href="../controllers_reddit_client/RedditClient/init.html">init</a></li>
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
