@@ -1,6 +1,9 @@
 name: Build APK
 
 on:
+  push:
+    branches:
+      - 'flutter'
   pull_request:
     branches:
       - '*'
