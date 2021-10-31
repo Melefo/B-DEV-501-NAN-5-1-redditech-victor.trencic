@@ -280,7 +280,7 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
                             Tab(text: "Downvotes"),
                           ],
                           controller: _tabController,
-                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorSize: TabBarIndicatorSize.label,
                           labelColor: RodditColors.blue,
                         ),
                       ),
