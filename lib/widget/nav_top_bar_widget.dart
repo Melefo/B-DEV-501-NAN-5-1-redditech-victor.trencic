@@ -1,5 +1,4 @@
 import 'dart:core';
-
 import 'package:app/arguments/sub_args.dart';
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/extensions/rodditor.dart';
@@ -10,6 +9,7 @@ import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final RedditClient client = RedditClient();
@@ -48,7 +48,9 @@ class NavigationTopBarWidget extends StatelessWidget implements PreferredSizeWid
 class StatefulWrapper extends StatefulWidget {
   final Function onInit;
   final Widget child;
-  const StatefulWrapper({required this.onInit, required this.child});
+
+  const StatefulWrapper({Key? key, required this.onInit, required this.child})
+      : super(key: key);
 
   @override
   _StatefulWrapperState createState() => _StatefulWrapperState();
@@ -60,6 +62,7 @@ class _StatefulWrapperState extends State<StatefulWrapper> {
     widget.onInit();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -82,7 +85,7 @@ class ExSearch extends SearchDelegate<String> {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = "";
         },
@@ -93,7 +96,7 @@ class ExSearch extends SearchDelegate<String> {
   @override
   Widget? buildLeading(BuildContext context) {
     IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {},
     );
   }
