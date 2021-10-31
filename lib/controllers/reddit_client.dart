@@ -53,6 +53,7 @@ class RedditClient extends ControllerMVC {
 
   RedditClient._({String? token}) {
     _model = RedditData(token: token);
+    _modelDisconnect = null;
   }
 
   bool get isConnected => _model.isConnected;
