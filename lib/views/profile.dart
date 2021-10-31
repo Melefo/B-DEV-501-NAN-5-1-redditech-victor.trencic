@@ -88,7 +88,7 @@ class _Profile extends StateMVC<ProfileView> with SingleTickerProviderStateMixin
               return [
                 SliverAppBar(
                     pinned: true,
-                    expandedHeight: 4027,
+                    expandedHeight: 427,
                     backgroundColor: Colors.white,
                     automaticallyImplyLeading: false,
                     flexibleSpace: FlexibleSpaceBar(
