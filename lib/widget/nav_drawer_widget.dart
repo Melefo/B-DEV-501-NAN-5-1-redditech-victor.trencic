@@ -5,28 +5,45 @@ import 'package:app/roddit_colors.dart';
 import 'package:app/views/home.dart';
 import 'package:app/views/profile.dart';
 import 'package:app/views/subreddit.dart';
-import 'package:draw/draw.dart';
 import 'package:mvc_application/controller.dart';
 import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key? key, this.callback}) : super(key: key);
+  const NavigationDrawerWidget({Key? key, this.callback, this.sub}) : super(key: key);
 
   final Function()? callback;
+  final String? sub;
 
   @override
   State<StatefulWidget> createState() => _NavigationDrawerWidget();
 }
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   final padding = const EdgeInsets.symmetric(horizontal: 20);
   final client = RedditClient();
   final List<Widget> list = [];
+  late bool _disposed = false;
+
+  String get currentRoute =>
+      ModalRoute
+          .of(context)!
+          .settings
+          .name!;
 
   void listen() {
-    client.me!.subreddits.listen((sub) async {
+    client.me!.subreddits().listen((sub) async {
+      if (_disposed) {
+        return;
+      }
       setState(() {
         list.add(ListTile(
           leading: CircleAvatar(
@@ -34,11 +51,23 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 ? NetworkImage(sub.iconImage.toString())
                 : null,
           ),
-          title: Text("/r/" + sub.displayName),
+          title: Text("/r/" + sub.displayName,
+              style: TextStyle(
+                  color: widget.sub != sub.fullname
+                      ? RodditColors.blue
+                      : RodditColors.pink
+              )
+          ),
           onTap: () {
-            Navigator.pushNamed(context, SubredditView.routeName,
-                arguments: SubredditArguments(sub: sub));
+            if (widget.sub != sub.fullname) {
+              Navigator.pushReplacementNamed(context, SubredditView.routeName,
+                  arguments: SubredditArguments(sub: sub));
+            }
+            else {
+              Navigator.pop(context);
+            }
           },
+          selected: widget.sub == sub.fullname,
         ));
       });
     });
@@ -61,24 +90,34 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               accountName: Text(
                   client.isConnected
                       ? client.me!.username
-                      : "Roddit"
+                      : "Anonymous Rodditor"
               ),
               accountEmail: Text(
-                  client.isConnected ? "/u/" + client.me!.displayName : ""
+                  client.isConnected
+                      ? "/u/" + client.me!.displayName
+                      : "Not connected"
               ),
               currentAccountPicture: TextButton(
                 onPressed: () {
                   if (!client.isConnected) {
                     return;
                   }
-                  Navigator.pushNamed(
+                  if (currentRoute != ProfileView.routeName) {
+                    Navigator.pushReplacementNamed(
                       context,
                       ProfileView.routeName
                   );
+                  }
+                  else {
+                    Navigator.pop(context);
+                  }
                 },
                 child: CircleAvatar(
-                  backgroundImage: client.isConnected ?
-                  NetworkImage(client.me!.iconImg!) : null,
+                  backgroundImage: (
+                      client.isConnected ?
+                      NetworkImage(client.me!.iconImg!) :
+                      const AssetImage("assets/icon/icon.png")
+                  ) as ImageProvider,
                   backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                   radius: 32,
                 ),
@@ -93,24 +132,44 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
             ListView(
               children: [
                 ListTile(
-                  leading: const CircleAvatar(
-                      child: Icon(Icons.home)
+                  leading: CircleAvatar(
+                    child: Icon(Icons.home,
+                      size: 38,
+                      color: currentRoute == HomeView.routeName ?
+                      RodditColors.pink : RodditColors.blue,
+                    ),
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
                   ),
-                  title: const Text("Home"),
+                  title: Text("Home",
+                      style: TextStyle(
+                        color: currentRoute == HomeView.routeName ?
+                        RodditColors.pink : RodditColors.blue,
+                      )
+                  ),
                   onTap: () {
-                    Navigator.pushNamed(context, HomeView.routeName);
+                    if (currentRoute != HomeView.routeName) {
+                      Navigator.pushReplacementNamed(
+                          context, HomeView.routeName);
+                    }
+                    else {
+                      Navigator.pop(context);
+                    }
                   },
+                  selected: currentRoute == HomeView.routeName,
                 ),
                 if (!client.isConnected)
-                  OutlinedButton(
-                      onPressed: () async {
-                        await client.connect();
-                        if (client.isConnected && widget.callback != null) {
-                          listen();
-                          widget.callback!();
-                        }
-                      },
-                      child: const Text("CONNECT")
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 82),
+                    child: OutlinedButton(
+                        onPressed: () async {
+                          await client.connect();
+                          if (client.isConnected && widget.callback != null) {
+                            listen();
+                            widget.callback!();
+                          }
+                        },
+                        child: const Text("CONNECT")
+                    ),
                   )
                 ,
                 ...list
