@@ -1,4 +1,4 @@
-package com.melefo.redditech
+package com.melefo.roddit
 
 import io.flutter.embedding.android.FlutterActivity
 

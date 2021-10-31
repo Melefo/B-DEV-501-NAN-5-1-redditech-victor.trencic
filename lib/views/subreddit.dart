@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app/arguments/sub_args.dart';
 import 'package:app/controllers/reddit_client.dart';
 import 'package:app/widget/nav_bot_bar_widget.dart';
 import 'package:app/widget/nav_drawer_widget.dart';
@@ -11,43 +12,47 @@ import 'package:mvc_application/view.dart';
 import 'package:flutter/material.dart';
 
 //view
-class HomeView extends StatefulWidget {
-  final String title;
+class SubredditView extends StatefulWidget {
+  static String routeName = "/sub";
 
-  static String routeName = "/";
-
-  const HomeView({Key? key, required this.title}) : super(key: key);
+  const SubredditView({Key? key}) : super(key: key);
 
   @override
-  StateMVC<HomeView> createState() => _Home();
+  StateMVC<SubredditView> createState() => _Subreddit();
 }
 
 //state
-class _Home extends StateMVC<HomeView> {
+class _Subreddit extends StateMVC<SubredditView> {
+  bool first = false;
   final RedditClient client = RedditClient();
   final ScrollController _controller = ScrollController();
   final List<Submission> posts = [];
-
   PostType currentType = PostType.hot;
   StreamSubscription _stream = const Stream.empty().listen((event) {});
   bool _end = false;
+  Subreddit? sub;
 
   void emptyPosts() {
-    client.resetPosts(currentType);
-    setState(() => posts.clear());
+    client.resetSubPosts(sub!.displayName, currentType);
+    setState(() {
+      posts.clear();
+    });
     listen();
   }
 
   void listen() {
     _end = false;
     _stream.cancel();
-    _stream = client.getFrontPosts(currentType).listen((event) {
-      setState(() {
-        posts.add(event);
-      });
-    }, onDone: () {
-      _end = true;
-    });
+    if (sub != null) {
+      _stream =
+          client.getSubPosts(sub!.displayName, currentType).listen((event) {
+            setState(() {
+              posts.add(event);
+            });
+          }, onDone: () {
+            _end = true;
+          });
+    }
   }
 
   @override
@@ -68,11 +73,18 @@ class _Home extends StateMVC<HomeView> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-          drawer: NavigationDrawerWidget(callback: emptyPosts),
-          appBar: NavigationTopBarWidget(title: widget.title),
-          bottomNavigationBar: NavigationBotBarWidget(callback: filter),
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as SubredditArguments;
+    sub = args.sub;
+    if (!first) {
+      emptyPosts();
+      first = true;
+    }
+
+    return Scaffold(
+          drawer: NavigationDrawerWidget(callback: emptyPosts, sub: sub!.fullname),
+          appBar: NavigationTopBarWidget(title: sub!.title),
+          bottomNavigationBar: NavigationBotBarWidget(callback: filter, sub: sub),
           floatingActionButton: NavigationFabButtonWidget(
               buttonIcon: Icons.cached,
               onPressed: emptyPosts
@@ -96,4 +108,5 @@ class _Home extends StateMVC<HomeView> {
             controller: _controller,
           )
       );
+  }
 }

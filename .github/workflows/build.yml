@@ -1,6 +1,9 @@
 name: Build APK
 
 on:
+  push:
+    branches:
+      - 'flutter'
   pull_request:
     branches:
       - '*'
@@ -30,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: "build/app/outputs/flutter-apk/app-release.apk"
-          name: "Redditech.apk"
+          name: "Roddit.apk"
