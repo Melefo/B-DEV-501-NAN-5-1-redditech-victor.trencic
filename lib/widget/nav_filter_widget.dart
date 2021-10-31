@@ -68,6 +68,9 @@ class _NavigationFilterWidget extends State<NavigationFilterWidget> {
             ],
             onSelected: (PostType newValue) {
               setState(() {
+                if (_value == newValue) {
+                  return;
+                }
                 _value = newValue;
                 if (widget.callback != null) {
                   widget.callback!(newValue);
